@@ -359,7 +359,7 @@ export default function Home() {
         </p>
         <div className="mt-[50px] w-full lg:max-w-[55%] max-w-[100%] border-l-2 border-[#282722] p-8 ">
           {poolBalanceValue ? (
-            <p className="font-semibold text-[35px] lg:text-[46px] w-full">
+            <p className="font-semibold text-[25px] lg:text-[46px] w-full">
               {Number(ethers.formatEther(poolBalanceValue)).toFixed(2)}
               <span className="text-[#d79920]">BTCA</span>
             </p>
@@ -373,10 +373,10 @@ export default function Home() {
           </p>
         </div>
         <div className="mt-[30px] lg:mt-[50px] w-[100%] md:w-[45%] border-l-2 border-[#282722] p-8 ">
-          <p className="font-semibold text-[35px] lg:text-[46px] w-full ">
+          <p className="font-semibold text-[25px] lg:text-[46px] max-w-[98%] ">
             ${tokenPrice}
           </p>
-          <p className="text-[#d79920] text-[13px] lg:text-[18px] font-semibold">
+          <p className="text-[#d79920] text-[13px] lg:text-[18px] max-w-[98%] font-semibold">
             1 BTCA Price
           </p>
         </div>
