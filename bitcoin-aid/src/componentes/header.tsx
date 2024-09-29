@@ -7,6 +7,8 @@ import { useWallet } from "@/services/walletContext";
 import { MdLogout } from "react-icons/md";
 import { FaCopy } from "react-icons/fa";
 import { PiUserSwitchLight } from "react-icons/pi";
+import { FaTelegramPlane } from "react-icons/fa";
+
 
 export default function Header() {
   const { address, setAddress } = useWallet();
@@ -199,12 +201,14 @@ export default function Header() {
             <button onClick={openAccountMenu} className="shadow-sm shadow-black px-[12px] py-[5px] cursor-pointer text-[#eda921]">{`${address.slice(0, 6)}...${address.slice(-4)}`}</button>
             </>
           ) : (
+            <>
             <button
               onClick={handleLogin}
               className="text-[12px] p-[8px] border-2 rounded-full border-[#eda921] transition-all duration-300 hover:border-[#bb8312] hover:p-[10px] sm:text-[15px] font-semibold"
             >
               Connect Wallet
             </button>
+            </>
           )}
         </div>
 
