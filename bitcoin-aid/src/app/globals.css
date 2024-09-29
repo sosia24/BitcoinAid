@@ -1,0 +1,382 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* globals.css */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield; /* Remove setas no Firefox */
+}
+
+/* Barra de rolagem em Webkit (Chrome, Safari, Edge) */
+
+@font-face {
+  font-family: "Agency";
+  src: url("/fonts/Agency.ttf") format("truetype");
+  font-weight: thin;
+  font-style: thin;
+}
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+/* globals.css ou outro arquivo CSS global */
+body{
+  color: white;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+.caixa3d {
+  position: relative; /* Necessário para que os pseudoelementos sejam posicionados corretamente */
+  width: 255px; /* Largura da caixa principal */
+  height: 200px; /* Altura da caixa principal */
+  background-color: #2d3748; /* Cor da frente da caixa */
+  perspective: 800px; /* Dá uma perspectiva 3D mais realista */
+}
+
+.caixa3d::before {
+  content: "";
+  width: 255px; /* Largura do topo, igual à caixa principal */
+  height: calc(0.192 * 190px); /* Altura calculada em relação à altura da caixa */
+  position: absolute;
+  top: calc(-0.192 * 190px); /* Move o topo inclinado para cima da caixa */
+  right: -42px; /* Mantém alinhado à esquerda da caixa */
+  background-color: #232838; /* Cor do topo da caixa */
+  transform: skewX(-49deg); /* Inclina o topo */
+  transform-origin: top; /* Origem da inclinação no topo */
+  z-index: 1; /* Fica acima do conteúdo da caixa */
+  transition: transform 1s, left 1s;
+}
+
+.caixa3d::after {
+  content: "";
+  width: calc(0.16 * 255px); /* Largura da lateral proporcional */
+  height: 200px; /* Altura da lateral igual à altura da caixa */
+  position: absolute;
+  top: 0; /* Alinhado ao topo da caixa */
+  left: 255px; /* Posicionado à direita da caixa */
+  background-color: #191c27; /* Cor da lateral direita (sombra mais escura) */
+  transform: skewY(-42deg); /* Inclinação da lateral para simular profundidade */
+  transform-origin: left; /* Inclinação se origina da esquerda da lateral */
+  z-index: -1; /* Fica atrás da caixa */
+  transition: transform 1s, left 1s;
+}
+@media (max-width: 1024px) {
+
+  .caixa3d {
+    position: relative; /* Necessário para que os pseudoelementos sejam posicionados corretamente */
+    width: 191px; /* Largura da caixa principal */
+    height: 150px; /* Altura da caixa principal */
+    background-color: #2d3748; /* Cor da frente da caixa */
+    perspective: 600px; /* Dá uma perspectiva 3D mais realista */
+  }
+
+  .caixa3d::before {
+    content: "";
+    width: 191px; /* Largura do topo, igual à caixa principal */
+    height: calc(0.192 * 142px); /* Altura calculada em relação à altura da caixa */
+    position: absolute;
+    top: calc(-0.192 * 142px); /* Move o topo inclinado para cima da caixa */
+    right: -32px; /* Mantém alinhado à esquerda da caixa */
+    background-color: #232838; /* Cor do topo da caixa */
+    transform: skewX(-49deg); /* Inclina o topo */
+    transform-origin: top; /* Origem da inclinação no topo */
+    z-index: 1; /* Fica acima do conteúdo da caixa */
+    transition: transform 1s, left 1s;
+  }
+  
+  .caixa3d::after {
+    content: "";
+    width: calc(0.16 * 191px); /* Largura da lateral proporcional */
+    height: 150px; /* Altura da lateral igual à altura da caixa */
+    position: absolute;
+    top: 0; /* Alinhado ao topo da caixa */
+    left: 191px; /* Posicionado à direita da caixa */
+    background-color: #191c27; /* Cor da lateral direita (sombra mais escura) */
+    transform: skewY(-42deg); /* Inclinação da lateral para simular profundidade */
+    transform-origin: left; /* Inclinação se origina da esquerda da lateral */
+    z-index: -1; /* Fica atrás da caixa */
+    transition: transform 1s, left 1s;
+  }
+}
+
+@media (max-width: 680px) {
+
+  .caixa3d {
+    position: relative; /* Necessário para que os pseudoelementos sejam posicionados corretamente */
+    width: 142px; /* Largura da caixa principal */
+    height: 111px; /* Altura da caixa principal */
+    background-color: #2d3748; /* Cor da frente da caixa */
+    perspective: 450px; /* Dá uma perspectiva 3D mais realista */
+  }
+
+  .caixa3d::before {
+    content: "";
+    width: 142px; /* Largura do topo, igual à caixa principal */
+    height: calc(0.192 * 105px); /* Altura calculada em relação à altura da caixa */
+    position: absolute;
+    top: calc(-0.192 * 105px); /* Move o topo inclinado para cima da caixa */
+    right: -22px; /* Mantém alinhado à esquerda da caixa */
+    background-color: #232838; /* Cor do topo da caixa */
+    transform: skewX(-49deg); /* Inclina o topo */
+    transform-origin: top; /* Origem da inclinação no topo */
+    z-index: 1; /* Fica acima do conteúdo da caixa */
+    transition: transform 1s, left 1s;
+  }
+  
+  .caixa3d::after {
+    content: "";
+    width: calc(0.16 * 142px); /* Largura da lateral proporcional */
+    height: 111px; /* Altura da lateral igual à altura da caixa */
+    position: absolute;
+    top: 0; /* Alinhado ao topo da caixa */
+    left: 142px; /* Posicionado à direita da caixa */
+    background-color: #191c27; /* Cor da lateral direita (sombra mais escura) */
+    transform: skewY(-42deg); /* Inclinação da lateral para simular profundidade */
+    transform-origin: left; /* Inclinação se origina da esquerda da lateral */
+    z-index: -1; /* Fica atrás da caixa */
+    transition: transform 1s, left 1s;
+  }
+}
+@media (max-width: 310px) {
+
+  .caixa3d {
+    position: relative; /* Necessário para que os pseudoelementos sejam posicionados corretamente */
+    width: 123px; /* Largura da caixa principal */
+    height: 96px; /* Altura da caixa principal */
+    background-color: #2d3748; /* Cor da frente da caixa */
+    perspective: 383px; /* Dá uma perspectiva 3D mais realista */
+  }
+
+  .caixa3d::before {
+    content: "";
+    width: 123px; /* Largura do topo, igual à caixa principal */
+    height: calc(0.192 * 90px); /* Altura calculada em relação à altura da caixa */
+    position: absolute;
+    top: calc(-0.192 * 90px); /* Move o topo inclinado para cima da caixa */
+    right: -21px; /* Mantém alinhado à esquerda da caixa */
+    background-color: #232838; /* Cor do topo da caixa */
+    transform: skewX(-49deg); /* Inclina o topo */
+    transform-origin: top; /* Origem da inclinação no topo */
+    z-index: 1; /* Fica acima do conteúdo da caixa */
+    transition: transform 1s, left 1s;
+  }
+  
+  .caixa3d::after {
+    content: "";
+    width: calc(0.16 * 123px); /* Largura da lateral proporcional */
+    height: 96px; /* Altura da lateral igual à altura da caixa */
+    position: absolute;
+    top: 0; /* Alinhado ao topo da caixa */
+    left: 123px; /* Posicionado à direita da caixa */
+    background-color: #191c27; /* Cor da lateral direita (sombra mais escura) */
+    transform: skewY(-42deg); /* Inclinação da lateral para simular profundidade */
+    transform-origin: left; /* Inclinação se origina da esquerda da lateral */
+    z-index: -1; /* Fica atrás da caixa */
+    transition: transform 1s, left 1s;
+  }
+}
+
+
+
+.nftPiscando {
+  background: linear-gradient(
+    to top,
+    rgb(125, 94, 16), 
+    rgb(215, 153, 32) 50%, 
+    rgb(198, 163, 23) 100%
+  );
+  animation: piscar 2s infinite;
+}
+
+
+.nftUserPiscando {
+  background: linear-gradient(
+    to top,
+    rgb(20, 22, 133),
+    rgb(36, 39, 234) 50%,
+    rgb(32, 35, 215) 100%
+  );
+  animation: piscar 2s infinite;
+}
+
+
+.nftPaidPiscando {
+  background: repeating-linear-gradient(
+    to right,
+    rgb(85, 75, 69),
+    rgb(85, 75, 69) 0.212%,
+    #008510 0.212%,
+    rgb(0, 133, 16) 17.176%,
+    rgb(0, 133, 16) 16.8433%,
+    rgb(0, 133, 16) 33.142%,
+    rgb(0, 133, 16) 33.4747%,
+    rgb(0, 133, 16) 50.106%,
+    rgb(0, 133, 16) 50.106%,
+    rgb(0, 133, 16) 67.07%,
+    rgb(0, 133, 16) 66.7373%,
+    rgb(0, 133, 16) 83.036%,
+    rgb(0, 133, 16) 83.3687%,
+    rgb(0, 133, 16) 100%
+  );
+  animation: piscar 2s infinite;
+}
+@keyframes piscar {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5; /* Diminui a opacidade no meio */
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes shoot {
+  from {
+    bottom: 0;
+    left: 50%;
+  }
+  to {
+    bottom: 50%;
+    left: calc(50% + 20px);
+  }
+}
+
+@keyframes explode {
+  from {
+    opacity: 1;
+    transform: scale(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(2);
+  }
+}
+
+@keyframes sparkle {
+  from {
+    opacity: 1;
+    transform: translate(0, 0) scale(0.5);
+  }
+  to {
+    opacity: 0;
+    transform: translate(var(--x), var(--y)) scale(1);
+  }
+}
+
+.spark:nth-child(1) {
+  --x: 20px;
+  --y: -40px;
+}
+.spark:nth-child(2) {
+  --x: -20px;
+  --y: -40px;
+}
+.spark:nth-child(3) {
+  --x: 30px;
+  --y: -10px;
+}
+.spark:nth-child(4) {
+  --x: -30px;
+  --y: -10px;
+}
+.spark:nth-child(5) {
+  --x: 40px;
+  --y: 10px;
+}
+.spark:nth-child(6) {
+  --x: -40px;
+  --y: 10px;
+}
+
+/*shine animation */
+
+/* styles/globals.css ou styles/animation.css */
+@keyframes shine {
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
+}
+
+.glossy {
+  position: relative;
+  overflow: hidden;
+  background: #26251f35; /* Cor de fundo do card */
+}
+
+.glossy_cta{
+  position: relative;
+  overflow: hidden;
+  background: #d79920;
+}
+
+.glossy_claim{
+  position: relative;
+  overflow: hidden;
+  background: #448301;
+}
+
+.glossy_claim::before{
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.2) 25%, transparent 50%, rgba(255, 255, 255, 0.2) 75%);
+  background-size: 200% 100%;
+  animation: shine 2s infinite;
+}
+.glossy_cta::before{
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.2) 25%, transparent 50%, rgba(255, 255, 255, 0.2) 75%);
+  background-size: 200% 100%;
+  animation: shine 2s infinite;
+}
+
+.glossy::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.2) 25%, transparent 50%, rgba(255, 255, 255, 0.2) 75%);
+  background-size: 200% 100%;
+  animation: shine 2s infinite;
+  
+}
+
+.glossy-content {
+  position: relative;
+
+}
