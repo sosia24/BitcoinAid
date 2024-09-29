@@ -7,7 +7,6 @@ import { useWallet } from "@/services/walletContext";
 import { MdLogout } from "react-icons/md";
 import { FaCopy } from "react-icons/fa";
 import { PiUserSwitchLight } from "react-icons/pi";
-import { FaTelegramPlane } from "react-icons/fa";
 
 
 export default function Header() {
