@@ -426,7 +426,7 @@ export default function Home() {
                 height={150}
                 className="max-w-[25%] max-h-[25%]"
               />
-              <p className="text-[30px] font-semibold">Contribute BTCA</p>
+              <p className="text-[25px] font-semibold">Contribute BTCA</p>
             </div>
 
             <div className="flex flex-col justify-between m-auto w-[100%] sm:w-[95%] h-[300px] bg-[#434139] rounded-3xl mb-[20px]">
@@ -497,7 +497,7 @@ export default function Home() {
                 height={150}
                 className="max-w-[25%] max-h-[25%]"
               />
-              <p className="text-[30px] font-semibold">Claim BTCA</p>
+              <p className="text-[25px] font-semibold">Claim BTCA</p>
             </div>
 
             <div className="flex justify-between flex-col items-center mb-[20px] m-auto w-[100%] sm:w-[95%] h-[300px] bg-[#434139] rounded-3xl">
