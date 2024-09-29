@@ -31,7 +31,7 @@ export default function RootLayout({
           <main className={franklin.className}>{children}</main>
           <a href="https://t.me/seulink" target="_blank">
            <div className="fixed md:bottom-[90px] bottom-[80px] right-[2%] lg:right-[5%] bg-blue-500 text-white p-2 rounded-full shadow-lg hover:bg-blue-600 transition transform hover:scale-110">
-              <FaTelegramPlane className="md:w-4 md:h-4 w-6 h-6" />
+              <FaTelegramPlane className="md:w-6 md:h-6 w-4 h-4" />
            </div>
           </a>
 
