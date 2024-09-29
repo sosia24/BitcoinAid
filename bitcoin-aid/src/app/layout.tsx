@@ -5,6 +5,7 @@ import Header from "../componentes/header";
 import Footer from "@/componentes/footer";
 import { WalletProvider } from "@/services/walletContext";
 import Image from "next/image";
+import { Analytics } from "@vercel/analytics/react";
 import { FaTelegramPlane } from "react-icons/fa";
 const franklin = Libre_Franklin({ subsets: ["latin"] });
 
@@ -20,6 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+     
       <head>
         <title>BTCA</title>
         <link rel="icon" href="/images/LogoBTCA-PNG.png" />
@@ -28,6 +30,7 @@ export default function RootLayout({
         <Image alt="bg" src={'/images/World.png'} width={1000} height={1000} className="absolute z-[-1] opacity-[20%]"></Image>
         <WalletProvider> {/* Envolva o conteúdo com o WalletProvider */}
           <Header />
+          <Analytics />
           <main className={franklin.className}>{children}</main>
           <a href="https://t.me/+x_QT9TwEtx83MjYx" target="_blank">
            <div className="fixed md:bottom-[90px] bottom-[80px] right-[2%] bg-blue-500 text-white p-2 rounded-full shadow-lg hover:bg-blue-600 transition transform hover:scale-110">
