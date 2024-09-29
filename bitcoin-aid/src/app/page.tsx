@@ -502,7 +502,7 @@ export default function Home() {
 
             <div className="flex justify-between flex-col items-center mb-[20px] m-auto w-[100%] sm:w-[95%] h-[300px] bg-[#434139] rounded-3xl">
               <div className="pt-[30px]">
-                <p className="text-[25px] font-semibold">CLAIMABLE REWARDS</p>
+                <p className="text-[20px] font-semibold">CLAIMABLE REWARDS</p>
                 {userBalanceValue !== undefined && userBalanceValue !== null ? (
                   <>
                     <p className="font-Agency text-center text-[45px] mt-[15px]">
