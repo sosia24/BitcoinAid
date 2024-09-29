@@ -5,7 +5,7 @@ import Header from "../componentes/header";
 import Footer from "@/componentes/footer";
 import { WalletProvider } from "@/services/walletContext";
 import Image from "next/image";
-import Head from "next/head";
+import { FaTelegramPlane } from "react-icons/fa";
 const franklin = Libre_Franklin({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -29,6 +29,12 @@ export default function RootLayout({
         <WalletProvider> {/* Envolva o conteúdo com o WalletProvider */}
           <Header />
           <main className={franklin.className}>{children}</main>
+          <a href="https://t.me/seulink" target="_blank">
+           <div className="fixed bottom-[90px] right-[5%] lg:right-[2%] bg-blue-500 text-white p-2 rounded-full shadow-lg hover:bg-blue-600 transition transform hover:scale-110">
+              <FaTelegramPlane className="w-6 h-6" />
+           </div>
+          </a>
+
           <Footer/>
         </WalletProvider>
       </body>
