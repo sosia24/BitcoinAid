@@ -152,10 +152,6 @@ export default function Header() {
 
 
 
-
-
-
-
   useEffect(() => {
     const checkMetaMask = async () => {
       if (window.ethereum) {
@@ -199,10 +195,12 @@ export default function Header() {
 
     // Limpeza dos listeners ao desmontar o componente
     return () => {
-      if (window.ethereum) {
-        window.ethereum.removeListener('accountsChanged', () => {});
-        window.ethereum.removeListener('disconnect', () => {});
+      if (window.ethereum.removeListener) {
+        window.ethereum.removeListener('disconnect', handleDisconnect);
+      } else if (window.ethereum.off) {
+        window.ethereum.off('disconnect', handleDisconnect);
       }
+
     };
   }, []);
 
@@ -252,9 +250,13 @@ export default function Header() {
   
       return () => {
         // Remove o listener quando o componente é desmontado
-        if (window.ethereum) {
-          window.ethereum.removeListener('accountsChanged', () => {});
-        }
+  
+          if (window.ethereum.removeListener) {
+            window.ethereum.removeListener('disconnect', handleDisconnect);
+          } else if (window.ethereum.off) {
+            window.ethereum.off('disconnect', handleDisconnect);
+          }
+  
       };
     }, []);
 

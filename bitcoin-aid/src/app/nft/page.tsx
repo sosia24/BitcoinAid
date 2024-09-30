@@ -546,11 +546,11 @@ async function getPriceToken() {
                 {...settings(dataSet.length)}
                 className=" w-full sm:max-w-[90%] max-w-[95%] lg:ml-[30px] ml-[10px] h-full mt-[10px] lg:text-[16px] sm:text-[12px] text-[10px] mb-[120px]">
                 {dataSet.map((item, itemIndex) => (
-                  item.user && item.nextPaied === false && item.user.toLocaleLowerCase() === address?(
+                  item.user && item.nextPaied === false && item.user === address?(
                   <div key={itemIndex} className="">
                     <div className="mt-[50px] nftUserPiscando p-2 lg:p-4 caixa3d transform transition-transform">
                       <div className="">
-                      <p className="font-semibold">{address && item.user.toLocaleLowerCase() == address.toLocaleLowerCase() ? "Your" : "N/A"}</p>
+                      <p className="font-semibold">{address && item.user == address ? "Your" : "N/A"}</p>
                         <h3>Position in the queue: {itemIndex + 1}</h3>
                       </div>
                       <p>
@@ -578,8 +578,8 @@ async function getPriceToken() {
                         <div className="">
                         <p className="font-semibold">
                               {address &&
-                              item.user.toLocaleLowerCase() ==
-                                address.toLocaleLowerCase()
+                              item.user ==
+                                address
                                 ? "Your"
                                 : ""}
                             </p>
@@ -604,7 +604,7 @@ async function getPriceToken() {
                           </p>
 
 
-                           {item.user.toLocaleLowerCase() === address ? (
+                           {item.user === address? (
                             <button
                               onClick={() =>
                                 doClaimQueue(
@@ -621,11 +621,11 @@ async function getPriceToken() {
                           )}
                       </div>
                     </div>
-                  ) : item.user && item.nextPaied === false && item.user.toLocaleLowerCase() != address?(
+                  ) : item.user && item.nextPaied === false && item.user != address?(
                     <div key={itemIndex} className="">
                     <div className="mt-[50px] nftPiscando p-2 lg:p-4 caixa3d transform transition-transform">
                       <div className="">
-                      <p className="font-semibold">{address && item.user.toLocaleLowerCase() == address.toLocaleLowerCase() ? "Your" : ""}</p>
+                      <p className="font-semibold">{address && item.user == address ? "Your" : ""}</p>
                         <h3>Position in the queue: {itemIndex + 1}</h3>
                       </div>
                       <p>
