@@ -13,6 +13,7 @@ const COLLECTION_ADDRESS = process.env.NEXT_PUBLIC_COLLECTION_ADDRESS;
 const USDT_ADDRESS = process.env.NEXT_PUBLIC_USDT_ADDRESS;
 const ORACLE_ADDRESS = process.env.NEXT_PUBLIC_ORACLE_ADDRESS;
 const RPC_POLYGON = process.env.NEXT_PUBLIC_RPC_POLYGON;
+const NETWORK_ID = '0x89';
 import { nftQueue } from "./types";
 import { promises } from "dns";
 

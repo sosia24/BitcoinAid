@@ -3,10 +3,13 @@ import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { doLogin } from "@/services/Web3Services";
 import Link from "next/link";
+import { ethers } from "ethers";
 import { useWallet } from "@/services/walletContext";
 import { MdLogout } from "react-icons/md";
 import { FaCopy } from "react-icons/fa";
 import { PiUserSwitchLight } from "react-icons/pi";
+const NETWORK_ID = '0x89';
+import { BrowserProvider } from 'ethers'; // Versão 6+
 
 
 export default function Header() {
@@ -16,6 +19,7 @@ export default function Header() {
   const [accountMenu, setAccountMenu] = useState<boolean>(false);
   const menuRef = useRef<HTMLDivElement | null>(null); // Referência para o menu
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
+  
 
 
 
@@ -75,6 +79,81 @@ export default function Header() {
       // Recarrega a página
       window.location.reload();
   };
+
+
+
+
+
+
+
+
+
+
+  const checkNetwork = async () => {
+    if (typeof window.ethereum !== 'undefined') {
+      const web3Provider = new BrowserProvider(window.ethereum);
+      const { chainId } = await web3Provider.getNetwork();
+
+
+      const networkIdBigInt = BigInt(parseInt(NETWORK_ID, 16));
+
+      if (chainId !== networkIdBigInt) {
+        try {
+          // Solicitar troca de rede
+          await window.ethereum.request({
+            method: 'wallet_switchEthereumChain',
+            params: [{ chainId: NETWORK_ID }],
+          });
+        } catch (error) {
+          // Se a rede não estiver disponível, adicione-a
+          if (error instanceof Error && 'code' in error) {
+            const err = error as { code: number }; // Especifica que 'error' tem um campo 'code'
+        
+            if (err.code === 4902) {
+              try {
+                await window.ethereum.request({
+                  method: 'wallet_addEthereumChain',
+                  params: [
+                    {
+                      chainId: '0x89', // Exemplo para Polygon Mainnet
+                      chainName: 'Polygon Mainnet',
+                      nativeCurrency: {
+                        name: 'MATIC',
+                        symbol: 'MATIC',
+                        decimals: 18,
+                      },
+                      rpcUrls: ['https://rpc-mainnet.matic.network'],
+                      blockExplorerUrls: ['https://polygonscan.com/'],
+                    },
+                  ],
+                });
+              } catch (addError) {
+                console.error('Erro ao adicionar a rede:', addError);
+              }
+            }
+          } else {
+            console.error('Erro desconhecido:', error);
+          }
+        }
+      }
+    }
+  }
+
+  useEffect(() => {
+    checkNetwork();
+  }, []);
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   useEffect(() => {
