@@ -374,12 +374,12 @@ export default function Home() {
         </p>
         <div className="mt-[50px] w-full lg:max-w-[55%] max-w-[90%] border-l-2 border-[#282722] lg:p-8 p-4 ">
           {poolBalanceValue ? (
-            <p className="font-semibold text-[30px] lg:text-[40px] w-full m-w-[90%]">
+            <p className="font-semibold text-[25px] lg:text-[40px] w-full m-w-[90%]">
               {Number(ethers.formatEther(poolBalanceValue)).toFixed(2)}
               <span className="text-[#d79920]">BTCA</span>
             </p>
           ) : (
-            <p className="font-semibold text-[30px] lg:text-[40px] w-full">
+            <p className="font-semibold text-[25px] lg:text-[40px] w-full">
               ----- <span className="text-[#d79920]">BTCA</span>
             </p>
           )}
@@ -388,7 +388,7 @@ export default function Home() {
           </p>
         </div>
         <div className="mt-[30px] lg:mt-[50px] w-[100%] md:w-[45%] border-l-2 border-[#282722] p-8 ">
-          <p className="font-semibold text-[30px] lg:text-[40px] w-full ">
+          <p className="font-semibold text-[25px] lg:text-[40px] w-full ">
             ${tokenPrice}
           </p>
           <p className="text-[#d79920] text-[13px] lg:text-[18px] font-semibold">
@@ -441,7 +441,7 @@ export default function Home() {
                 height={150}
                 className="max-w-[25%] max-h-[25%]"
               />
-              <p className="text-[30px] font-semibold">Contribute BTCA</p>
+              <p className="lg:text-[30px] text-[23px] font-semibold">Contribute BTCA</p>
             </div>
 
             <div className="flex flex-col m-auto w-[100%] sm:w-[95%] h-[350px] bg-[#434139] rounded-3xl mb-[10px]">
@@ -449,7 +449,7 @@ export default function Home() {
                 {address ? (
                   balanceValue !== null ? (
                     <>
-                      <p className="text-[25px]">Wallet Balance</p>
+                      <p className="text-[25px] font-semibold">WALLET BALANCE</p>
                       <span className="font-semibold text-[22px]">
                         {" "}
                         {Number(ethers.formatEther(balanceValue)).toFixed(
@@ -460,13 +460,13 @@ export default function Home() {
                     </>
                   ) : (
                     <>
-                      <p className="text-[25px]">Wallet Balance</p>
+                      <p className="text-[25px]  font-semibold">WALLET BALANCE</p>
                       <p className="text-[22px] font-semibold">00.0000 BTCA</p>
                     </>
                   )
                 ) : (
                   <>
-                    <p className="text-[25px]">Wallet Balance</p>
+                    <p className="text-[25px]  font-semibold">WALLET BALANCE</p>
                     <p className="text-[22px] font-semibold">---- BTCA</p>
                   </>
                 )}
@@ -549,19 +549,19 @@ export default function Home() {
                 height={150}
                 className="max-w-[25%] max-h-[25%]"
               />
-              <p className="text-[30px] font-semibold">Claim BTCA</p>
+              <p className="lg:text-[30px] text-[23px] font-semibold">Claim BTCA</p>
             </div>
 
             <div className="flex justify-between flex-col items-center mb-[20px] m-auto w-[100%] sm:w-[95%] h-[350px] bg-[#434139] rounded-3xl">
               <div className="pt-[30px]">
-                <p className="text-[25px] font-semibold">CLAIMABLE REWARDS</p>
+                <p className="lg:text-[25px] text-[20px] font-semibold">CLAIMABLE REWARDS</p>
                 {userBalanceValue !== undefined && userBalanceValue !== null ? (
                   <>
-                    <p className="font-Agency text-center text-[45px] mt-[15px]">
+                    <p className="font-Agency text-center text-[50px] mt-[25px]">
                       {balanceClaimed.toFixed(2)}
                       <span className="text-[#d79920]">$</span>
                     </p>
-                    <p className="font-Agency text-center text-[20px] mt-[-15px]">
+                    <p className="font-Agency text-center text-[22px] mt-[-15px]">
                       {(balanceClaimed / tokenPrice).toFixed(2)} BTCA
                     </p>
                   </>

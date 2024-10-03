@@ -503,12 +503,7 @@ async function getPriceToken() {
           ></Image>
           <p>{minted !== undefined? `${minted}/100` : "Loading..."}</p>
           <p className="mx-auto text-[20px] mt-[10px] font-semibold">{nftCurrentPrice ? `${nftCurrentPrice}$` : "Loading..."}</p>
-          <button
-                onClick={handleApproveOpen}
-                className=" hover:bg-[#299508] mx-auto p-[10px] w-[200px] rounded-full mt-[10px] glossy_claim"
-              >
-                Approve USDT
-            </button>
+          
           {allowanceUsdt >= nftCurrentPrice ? (
               <button
                 onClick={buyNft}
@@ -517,12 +512,20 @@ async function getPriceToken() {
                 Buy Nft
             </button>
           ):(
+            <>
+            <button
+                onClick={handleApproveOpen}
+                className=" hover:bg-[#299508] mx-auto p-[10px] w-[200px] rounded-full mt-[10px] glossy_claim"
+              >
+                Approve USDT
+            </button>
               <button
                 
                 className="cursor-not-allowed mx-auto p-[10px] w-[200px] border-[2px] border-white rounded-full mt-[10px] glossy_cta"
               >
                 Buy Nft
             </button>
+            </>
           )}
           
            
@@ -591,7 +594,7 @@ async function getPriceToken() {
                       Index: {Number(item.index)}
                       </p>
                       <p>
-                      Will Received: {getPaymentAmountForQueue(Number(item.batchLevel))}$
+                      Will Receive: {getPaymentAmountForQueue(Number(item.batchLevel))}$
                       </p>
                     </div>
                   </div>
@@ -621,7 +624,7 @@ async function getPriceToken() {
                           </p>
                           <p>Index: {Number(item.index)}</p>
                           <p className="font-semibold">
-                             Will Received {Number(getPaymentAmountForQueue(
+                             Will Receive: {Number(getPaymentAmountForQueue(
                                   Number(item.batchLevel)
                                 ))}$
                           </p>
@@ -666,7 +669,7 @@ async function getPriceToken() {
                       Index: {Number(item.index)}
                       </p>
                       <p>
-                      Will Received: {getPaymentAmountForQueue(Number(item.batchLevel))}$
+                      Will Receive: {getPaymentAmountForQueue(Number(item.batchLevel))}$
                       </p>
                     </div>
                   </div>
