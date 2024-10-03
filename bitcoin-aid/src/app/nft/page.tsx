@@ -23,7 +23,7 @@ import {
   claimQueue,
   totalMintedOnBatch,
   getTokenPrice,
-  allowanceUsdt,
+  getAllowanceUsdt,
   getNftUserByBatch,
 } from "@/services/Web3Services";
 import { nftQueue } from "@/services/types";
@@ -52,6 +52,7 @@ const SimpleSlider = () => {
   const [newQueue, setNewQueue] = useState<blockData[][]>([]);
   const [priceToken, setPriceToken] = useState<number>(0);
   const [lastBatchWithNft, setLastBatchWithNft] = useState<number>(0);
+  const [allowanceUsdt, setAllowanceUsdt] = useState<number>(0);
 
   async function getLastBatch(){
     const result = await getCurrentBatch();
@@ -70,12 +71,13 @@ const SimpleSlider = () => {
     }
   }
 
+  async function handleApproveOpen(){
+    setApproveToMintOpen(prevValue => !prevValue);
+  }
 
   async function verificaApprove(){
-    console.log("chamou verificaçao");
     if(address){
-      const result = await allowanceUsdt(address);
-      if(result >= nftCurrentPrice){
+      if(allowanceUsdt >= nftCurrentPrice){
         buyNft();
       }else{
         goApproveMint();
@@ -123,6 +125,13 @@ const SimpleSlider = () => {
 
   useEffect(() =>{
     totalSendInBatch();
+    const fetchAllowance = async ()=>{
+      if(address){
+        const result = await getAllowanceUsdt(address);
+        setAllowanceUsdt(result);
+      }
+    }
+    fetchAllowance();
   })
 
   const handleApproveQueueOpen = () => {
@@ -177,9 +186,7 @@ const SimpleSlider = () => {
 
   const doApproveMint = () => {
     console.log("chamou a funcao");
-    const priceInWei: number =
-      Number(nftCurrentPrice);
-      console.log("Valor da nft passado: ", priceInWei);
+    const priceInWei: number = Number(nftCurrentPrice)*100000;
     if (address) {
       approveToMintNft(priceInWei);
     } else {
@@ -497,11 +504,27 @@ async function getPriceToken() {
           <p>{minted !== undefined? `${minted}/100` : "Loading..."}</p>
           <p className="mx-auto text-[20px] mt-[10px] font-semibold">{nftCurrentPrice ? `${nftCurrentPrice}$` : "Loading..."}</p>
           <button
-                onClick={verificaApprove}
+                onClick={handleApproveOpen}
+                className=" hover:bg-[#299508] mx-auto p-[10px] w-[200px] rounded-full mt-[10px] glossy_claim"
+              >
+                Approve USDT
+            </button>
+          {allowanceUsdt >= nftCurrentPrice ? (
+              <button
+                onClick={buyNft}
                 className=" hover:bg-[#a47618] mx-auto p-[10px] w-[200px] bg-[#d79920] rounded-full mt-[10px] glossy_cta"
               >
                 Buy Nft
-              </button>
+            </button>
+          ):(
+              <button
+                
+                className="cursor-not-allowed mx-auto p-[10px] w-[200px] border-[2px] border-white rounded-full mt-[10px] glossy_cta"
+              >
+                Buy Nft
+            </button>
+          )}
+          
            
           </div>
         </div>
@@ -698,8 +721,8 @@ async function getPriceToken() {
               <TbLockAccess className="border-2 text-[80px] rounded-full p-[20px] border-white" />
               <p className="font-Agency text-[35px] mt-[10px]">Unlock USDT</p>
               <p className="text-center text-[18px] mt-[6px]">
-                We need your permission to move{" "}
-                {nftCurrentPrice ? `${nftCurrentPrice}$` : "Loading..."} USDT on
+                We need your permission to move
+               USDT on
                 your behalf
               </p>
               {address ? (

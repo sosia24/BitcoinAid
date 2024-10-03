@@ -18,12 +18,14 @@ import Error from "@/componentes/erro";
 import Alert from "@/componentes/alert";
 import { TbLockAccess } from "react-icons/tb";
 import { useWallet } from "@/services/walletContext";
-import { SiPolygon } from "react-icons/si";
+import { FaCheckCircle } from "react-icons/fa";
+import { CiUnlock } from "react-icons/ci";
 import Image from "next/image";
 const DONATION_ADDRESS = process.env.NEXT_PUBLIC_DONATION_ADDRESS;
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
+  const [loadingDonate, setLoadingDonate] = useState(false);
   const [error, setError] = useState("");
   const [alert, setAlert] = useState("");
   const [poolBalanceValue, setPoolBalanceValue] = useState<number | null>(null);
@@ -39,6 +41,7 @@ export default function Home() {
   const [allowance, setAllowance] = useState<number>(0);
   const [tokenPrice, setTokenPrice] = useState<number>(0);
   const [balanceClaimed, setBalanceClaimed] = useState<number>(0);
+  const [steps, setSteps] = useState<number>(1)
 
   interface UserBalance {
     amount: ethers.BigNumberish;
@@ -62,18 +65,17 @@ export default function Home() {
 
   async function approveToken(address: string, value: number) {
     try {
-      setLoading(true);
-      setApproveOpen(false);
+      setLoadingDonate(true);
       if (DONATION_ADDRESS) {
         const result = await approve(DONATION_ADDRESS, value);
         if (result) {
           await getAllowance(address, DONATION_ADDRESS);
-          setLoading(false);
-          setAlert("Now you can make donations!");
+          setLoadingDonate(false);
+          setSteps(2);
         }
       }
     } catch (err: any) {
-      setLoading(false);
+      setLoadingDonate(false);
       setError(`Error: ` + err.reason);
     }
   }
@@ -91,13 +93,16 @@ export default function Home() {
       setError(`Error granting permission: ` + err.reason);
     }
   }
+
   async function getTime(address: string) {
-    try {
-      const result = await timeUntilNextWithDrawal(address);
-      setTime(Number(result));
-    } catch {
-      setError(`Failed to start clock ${address}`);
-    }
+      if(address){
+        try{
+          const result = await timeUntilNextWithDrawal(address);
+          setTime(Number(result));
+        }catch(err){
+          setAlert("Failed to start clock");
+        }
+      }
   }
 
   useEffect(() => {
@@ -115,7 +120,15 @@ export default function Home() {
     }
   };
 
+  const donateMin = async () =>{
+    setError("The minimum donation is 10USDT");
+  }
+
   const Donate = async () => {
+    if(Math.floor((Number(value) * tokenPrice) * 100) / 100 <= 10){
+      setDonateOpen(false);
+      setError("The minimum donation is 10USDT")
+    }
     const intValue = parseInt(value, 10);
     let finalBalance = 0;
     if (balanceValue !== null) {
@@ -127,18 +140,18 @@ export default function Home() {
       setDonateOpen(false);
     } else {
       setError("");
-      setLoading(true);
-      setDonateOpen(false); // Limpa o erro se o valor for válido
+      setLoadingDonate(true); // Limpa o erro se o valor for válido
       try {
         const result = await donation(Number(value), isFifteenDays);
         if (result && address) {
-          setLoading(false);
-          setAlert("Your donation has been successfully received");
+          setLoadingDonate(false);
+          setSteps(3);
           getBalanceClaim(address);
           getUserBalance(address);
         }
       } catch (err: any) {
-        setLoading(false);
+        setLoadingDonate(false);
+        setDonateOpen(false);
         setError("Something went wrong: " + err.reason);
       }
     }
@@ -150,6 +163,7 @@ export default function Home() {
 
   const openDonate = () => {
     setDonateOpen((prevState) => !prevState);
+    setSteps(1);
   };
 
   const clearError = () => {
@@ -298,6 +312,7 @@ export default function Home() {
 
   const handleApproveOpen = async () => {
     setApproveOpen((prevState) => !prevState);
+    setValue('');
     setDonateOpen(false);
   };
 
@@ -359,7 +374,7 @@ export default function Home() {
         </p>
         <div className="mt-[50px] w-full lg:max-w-[55%] max-w-[100%] border-l-2 border-[#282722] p-8 ">
           {poolBalanceValue ? (
-            <p className="font-semibold text-[25px] lg:text-[46px] w-full">
+            <p className="font-semibold text-[35px] lg:text-[46px] w-full">
               {Number(ethers.formatEther(poolBalanceValue)).toFixed(2)}
               <span className="text-[#d79920]">BTCA</span>
             </p>
@@ -373,10 +388,10 @@ export default function Home() {
           </p>
         </div>
         <div className="mt-[30px] lg:mt-[50px] w-[100%] md:w-[45%] border-l-2 border-[#282722] p-8 ">
-          <p className="font-semibold text-[25px] lg:text-[46px] max-w-[98%] ">
+          <p className="font-semibold text-[35px] lg:text-[46px] w-full ">
             ${tokenPrice}
           </p>
-          <p className="text-[#d79920] text-[13px] lg:text-[18px] max-w-[98%] font-semibold">
+          <p className="text-[#d79920] text-[13px] lg:text-[18px] font-semibold">
             1 BTCA Price
           </p>
         </div>
@@ -426,11 +441,11 @@ export default function Home() {
                 height={150}
                 className="max-w-[25%] max-h-[25%]"
               />
-              <p className="text-[25px] font-semibold">Contribute BTCA</p>
+              <p className="text-[30px] font-semibold">Contribute BTCA</p>
             </div>
 
-            <div className="flex flex-col justify-between m-auto w-[100%] sm:w-[95%] h-[300px] bg-[#434139] rounded-3xl mb-[20px]">
-              <div className="pt-[30px] flex flex-col items-center justify-center">
+            <div className="flex flex-col m-auto w-[100%] sm:w-[95%] h-[350px] bg-[#434139] rounded-3xl mb-[10px]">
+              <div className="pt-[20px] flex flex-col items-center justify-center">
                 {address ? (
                   balanceValue !== null ? (
                     <>
@@ -463,27 +478,64 @@ export default function Home() {
                 </p>
                 {userBalanceValue !== undefined && userBalanceValue !== null ? (
                   <>
-                    <p className="text-[25px] mt-[14px]">Total Contributed</p>
+                    <p className="text-[25px] mt-[10px]">Total Contributed</p>
                     <span className="font-semibold text-[22px]">
                       {(Number(userBalanceValue) / 1000000).toFixed(2)} $
                     </span>
                   </>
                 ) : (
                   <>
-                    <p className="text-[22px] mt-[20px]">Total Contributed</p>
+                    <p className="text-[22px] mt-[10px]">Total Contributed</p>
                     <p className="text-[22px] font-semibold">
                       ---- <span className="">BTCA</span>
                     </p>
                   </>
                 )}
               </div>
-              <div className="flex justify-center items-end pb-[20px]">
+              <div className="flex items-center flex-col p-2 mt-[10px]">
+              <input
+                  onChange={(e) => setValue(e.target.value)}
+                  value={value}
+                  className="mb-[15px] w-[80%] p-2 bg-[#33322d] rounded-3xl mt-[1px] focus:outline-none focus:border-2 focus:border-[#eda921]"
+                  type="number"
+                  placeholder={Number(ethers.formatEther(balanceValue)).toFixed(2)}
+                ></input>
+                <div className="flex justify-between items-center w-[80%] mt-[-15px]">
+                <p className="">
+                   ${Math.floor((Number(value) * tokenPrice) * 100) / 100}
+                </p>
+
                 <button
-                  onClick={openDonate}
-                  className="shadow-lg glossy_cta hover:bg-[#b7831c] rounded-3xl text-[24px] md:text-[30px] font-Agency w-[80%] bg-[#d79920]"
+                onClick={handleMaxClick}
+                className="text-[#eda921] font-bold text-right"
                 >
-                  Contribute Now +
+                 MAX
                 </button>
+    
+                
+                </div>
+                {Math.floor((Number(value) * tokenPrice) * 100) / 100 >= 10?(
+                  <>
+                  <button
+                  onClick={openDonate}
+                  className="mt-[10px] shadow-lg glossy_cta hover:bg-[#b7831c] rounded-3xl text-[20px] md:text-[25px] font-Agency w-[80%] bg-[#d79920]"
+                  >
+                    Contribute Now +
+                    </button>
+                    </>
+                ):(
+                  <>
+                  
+                  <button
+                  onClick={donateMin}
+                  className="cursor-not-allowed mt-[10px] shadow-lg glossy_cta hover:bg-[#b7831c] rounded-3xl text-[20px] md:text-[25px] font-Agency w-[80%] bg-[#d79920]"
+                  >
+                    Contribute Now +
+                    </button>
+                  </>
+                )}
+                  
+                
               </div>
             </div>
           </div>
@@ -497,12 +549,12 @@ export default function Home() {
                 height={150}
                 className="max-w-[25%] max-h-[25%]"
               />
-              <p className="text-[25px] font-semibold">Claim BTCA</p>
+              <p className="text-[30px] font-semibold">Claim BTCA</p>
             </div>
 
-            <div className="flex justify-between flex-col items-center mb-[20px] m-auto w-[100%] sm:w-[95%] h-[300px] bg-[#434139] rounded-3xl">
+            <div className="flex justify-between flex-col items-center mb-[20px] m-auto w-[100%] sm:w-[95%] h-[350px] bg-[#434139] rounded-3xl">
               <div className="pt-[30px]">
-                <p className="text-[20px] font-semibold">CLAIMABLE REWARDS</p>
+                <p className="text-[25px] font-semibold">CLAIMABLE REWARDS</p>
                 {userBalanceValue !== undefined && userBalanceValue !== null ? (
                   <>
                     <p className="font-Agency text-center text-[45px] mt-[15px]">
@@ -554,7 +606,7 @@ export default function Home() {
         </div>
       </div>
 
-      {donateOpen ? (
+    {donateOpen ? (
         <div className="fixed inset-0 flex items-center justify-center z-50">
           <div
             className="fixed inset-0 bg-black opacity-80"
@@ -567,97 +619,95 @@ export default function Home() {
             >
               <p className="font-bold">X</p>
             </button>
-            <p className="text-center text-white text-[23px]">
-              Contributing <span className="text-[#eda921]">BTCA</span>
-            </p>
-            {address ? (
+
+            {steps === 1?(
               <>
-                <input
-                  onChange={(e) => setValue(e.target.value)}
-                  value={value}
-                  className="w-full m-w-[90%] p-2 bg-[#33322d] rounded-3xl mt-[20px] focus:outline-none focus:border-2 focus:border-[#eda921]"
-                  type="number"
-                  placeholder={Number(ethers.formatEther(balanceValue)).toFixed(
-                    2
+                <div className="w-[100%] flex flex-row text-center items-center">
+                <p className="text-[#d79920]">Step 1   . . . . . . . . </p>
+                <p className="text-gray-400">Step 2  . . . . . . . . . .</p>
+                <p className="text-gray-400 mr-[3px] ml-[3px]">Sucess</p><FaCheckCircle className="text-gray-400"></FaCheckCircle>
+              </div>
+              <div className="w-[100%] flex flex-col mt-[30px] ">
+                  <p className="text-[20px]">Get approval to move tokens on your behalf</p>
+                  {loadingDonate && (
+                  
+                    <div className="mt-[20px] ml-[20px] w-10 h-10 border-t-4 border-b-4 border-[#d79920] rounded-full animate-spin"></div>
+                  
                   )}
-                ></input>
-                <button
-                  onClick={handleMaxClick}
-                  className="text-[#eda921] ml-[10px] font-bold mt-[3px]"
-                >
-                  MAX
-                </button>
-                <p className="flex items-end justify-end mt-[-23px] mr-[15px]">
-                  ${Math.floor((Number(value) * tokenPrice) * 100) / 100}
-                </p>
-                <div className="w-full flex flex-col items-center mb-[15px] mt-[10px]">
-                  {Number(allowance) >= Number(value) ? (
+                  {address?(
+                    <>
                     <button
-                      onClick={Donate}
-                      className="w-[150px] font-semibold rounded-3xl bg-[#eda921] p-[8px] glossy_cta"
-                    >
-                      Contribute
-                    </button>
-                  ) : verifyAddress(address) ? (
-                    <button
-                      onClick={handleApproveOpen}
-                      className="w-[150px] font-semibold rounded-3xl bg-[#eda921] p-[8px] glossy_cta"
-                    >
-                      Approve
-                    </button>
-                  ) : (
-                    ""
+                    onClick={() => approveToken(address, Number(value))}
+                    className="font-semibold rounded-3xl bg-[#eda921] px-[30px] py-[5px] my-[20px]"
+                     >
+                   Unlock {Number(value).toFixed(2)} Aid
+                  </button>
+                  </>
+                  ):(
+                    null
                   )}
-                </div>
-              </>
-            ) : (
-              <button
-                onClick={handleLogin}
-                className="flex items-center justify-center mt-[20px] text-[12px] py-[10px] px-[20px] border-2 rounded-full border-[#eda921] transition-all duration-300 hover:border-[#bb8312] hover:px-[22px] hover:py-[12] sm:text-[15px] font-semibold mx-auto"
-              >
-                Connect Wallet
-              </button>
+                  </div>
+                  </>    
+              ):steps === 2?(
+              <>
+                <div className="w-[100%] flex flex-row text-center items-center">
+                <p className="text-green-600">Step 1   . . . . . . . . </p>
+                <p className="">Step 2  . . . . . . . . . .</p>
+                <p className="text-gray-400 mr-[3px] ml-[3px]">Sucess</p><FaCheckCircle className="text-gray-400"></FaCheckCircle>
+              </div>
+              <div className="w-[100%] flex flex-col mt-[30px] ">
+                  <p className="text-[20px]">Get approval to move tokens on your behalf</p><CiUnlock className="text-[40px] mt-[10px] text-[#d79920]"></CiUnlock>
+                  <p>.</p>
+                  <p>.</p>
+                  <p>.</p>
+                  <p className="text-[20px]">Confirm the donation</p>
+                  {loadingDonate && (
+                  
+                  <div className="mt-[20px] ml-[20px] w-10 h-10 border-t-4 border-b-4 border-[#d79920] rounded-full animate-spin"></div>
+                
+                   )}
+                  {address?(
+                    <>
+                    <button
+                    onClick={() => Donate()}
+                    className="font-semibold rounded-3xl bg-[#eda921] px-[30px] py-[5px] my-[20px]"
+                     >
+                   Donate {Number(value).toFixed(2)} Aid
+                  </button>
+                  </>
+                  ):(
+                    null
+                  )}
+                  </div>
+                  </>
+            ):steps === 3?(
+              <>
+                <div className="w-[100%] flex flex-row text-center items-center">
+                <p className="text-green-600">Step 1   . . . . . . . . </p>
+                <p className="text-green-600">Step 2  . . . . . . . . . .</p>
+                <p className="mr-[3px] ml-[3px] text-green-600">Sucess</p><FaCheckCircle className="text-green-700"></FaCheckCircle>
+              </div>
+              <div className="w-[100%] flex flex-col mt-[30px] ">
+                  <p className="text-[20px]">Get approval to move tokens on your behalf</p><FaCheckCircle className="text-[40px] mt-[10px] text-green-700"></FaCheckCircle>
+                  <p>.</p>
+                  <p>.</p>
+                  <p className="text-[20px]">Confirm the donation</p><FaCheckCircle className="text-[40px] mt-[10px] text-green-700"></FaCheckCircle>
+                  <p>.</p>
+                  <p>.</p>
+                  <p className="text-green-600 text-[18px]">Your donation has been successfully received</p>
+      
+                  </div>
+                  </>
+            ):(
+              ""
             )}
+                   
           </div>
         </div>
       ) : (
         ""
       )}
 
-      {aproveOpen ? (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div
-            className="fixed inset-0 bg-black opacity-80"
-            onClick={handleApproveOpen}
-          ></div>
-          <div className="relative items-center justify-center flex bg-[#201f1b] border-2 border-[#eda921] p-6 rounded-lg shadow-lg w-[80%] max-w-lg z-10">
-            {verifyAddress(address) ? (
-              <>
-                <div className="w-[100%] flex items-center justify-center flex-col">
-                  <TbLockAccess className="border-2 text-[80px] rounded-full p-[20px] border-white" />
-                  <p className="font-Agency text-[35px] mt-[10px]">
-                    Unlock AiD Token
-                  </p>
-                  <p className="text-center text-[18px] mt-[6px]">
-                    We need your permission to move {balanceClaimed} AiD on your
-                    behalf
-                  </p>
-                  <button
-                    onClick={() => approveToken(address, Number(value))}
-                    className=" font-semibold rounded-3xl bg-[#eda921] px-[30px] py-[12px] my-[20px]"
-                  >
-                    Approve {value} Aid
-                  </button>
-                </div>
-              </>
-            ) : (
-              ""
-            )}
-          </div>
-        </div>
-      ) : (
-        ""
-      )}
     </main>
   );
 }
