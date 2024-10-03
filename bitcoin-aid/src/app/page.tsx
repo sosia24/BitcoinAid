@@ -372,14 +372,14 @@ export default function Home() {
         <p className="leading-tight font-Agency text-[70px] sm:text-[90px] font-normal w-full">
           Bitcoin AiD Protocol
         </p>
-        <div className="mt-[50px] w-full lg:max-w-[55%] max-w-[100%] border-l-2 border-[#282722] p-8 ">
+        <div className="mt-[50px] w-full lg:max-w-[55%] max-w-[90%] border-l-2 border-[#282722] lg:p-8 p-4 ">
           {poolBalanceValue ? (
-            <p className="font-semibold text-[35px] lg:text-[46px] w-full">
+            <p className="font-semibold text-[30px] lg:text-[40px] w-full m-w-[90%]">
               {Number(ethers.formatEther(poolBalanceValue)).toFixed(2)}
               <span className="text-[#d79920]">BTCA</span>
             </p>
           ) : (
-            <p className="font-semibold text-[35px] lg:text-[46px] w-full">
+            <p className="font-semibold text-[30px] lg:text-[40px] w-full">
               ----- <span className="text-[#d79920]">BTCA</span>
             </p>
           )}
@@ -388,7 +388,7 @@ export default function Home() {
           </p>
         </div>
         <div className="mt-[30px] lg:mt-[50px] w-[100%] md:w-[45%] border-l-2 border-[#282722] p-8 ">
-          <p className="font-semibold text-[35px] lg:text-[46px] w-full ">
+          <p className="font-semibold text-[30px] lg:text-[40px] w-full ">
             ${tokenPrice}
           </p>
           <p className="text-[#d79920] text-[13px] lg:text-[18px] font-semibold">
@@ -612,7 +612,7 @@ export default function Home() {
             className="fixed inset-0 bg-black opacity-80"
             onClick={openDonate}
           ></div>
-          <div className="relative bg-[#201f1b] border-2 border-[#eda921] p-6 rounded-lg shadow-lg w-[80%] max-w-lg z-10">
+          <div className="relative bg-[#201f1b] border-2 border-[#eda921] p-6 rounded-lg shadow-lg w-[90%] max-w-lg z-10">
             <button
               className="absolute top-4 right-4 text-red-600"
               onClick={openDonate}
@@ -623,12 +623,12 @@ export default function Home() {
             {steps === 1?(
               <>
                 <div className="w-[100%] flex flex-row text-center items-center">
-                <p className="text-[#d79920]">Step 1   . . . . . . . . </p>
-                <p className="text-gray-400">Step 2  . . . . . . . . . .</p>
-                <p className="text-gray-400 mr-[3px] ml-[3px]">Sucess</p><FaCheckCircle className="text-gray-400"></FaCheckCircle>
+                <p className="text-[#d79920] md:text-[16px] text-[12px]">Step 1   . . . . . . . . </p>
+                <p className="text-gray-400 md:text-[16px] text-[12px]">Step 2  . . . . . . . . . .</p>
+                <p className="text-gray-400 mr-[3px] ml-[3px] md:text-[16px] text-[12px]">Sucess</p><FaCheckCircle className="text-gray-400"></FaCheckCircle>
               </div>
               <div className="w-[100%] flex flex-col mt-[30px] ">
-                  <p className="text-[20px]">Get approval to move tokens on your behalf</p>
+                  <p className="text-[20px] ">Get approval to move tokens on your behalf</p>
                   {loadingDonate && (
                   
                     <div className="mt-[20px] ml-[20px] w-10 h-10 border-t-4 border-b-4 border-[#d79920] rounded-full animate-spin"></div>
@@ -651,9 +651,9 @@ export default function Home() {
               ):steps === 2?(
               <>
                 <div className="w-[100%] flex flex-row text-center items-center">
-                <p className="text-green-600">Step 1   . . . . . . . . </p>
-                <p className="">Step 2  . . . . . . . . . .</p>
-                <p className="text-gray-400 mr-[3px] ml-[3px]">Sucess</p><FaCheckCircle className="text-gray-400"></FaCheckCircle>
+                <p className="text-green-600 md:text-[16px] text-[12px]">Step 1   . . . . . . . . </p>
+                <p className="md:text-[16px] text-[12px]">Step 2  . . . . . . . . . .</p>
+                <p className="text-gray-400 mr-[3px] ml-[3px] md:text-[16px] text-[12px]">Sucess</p><FaCheckCircle className="text-gray-400"></FaCheckCircle>
               </div>
               <div className="w-[100%] flex flex-col mt-[30px] ">
                   <p className="text-[20px]">Get approval to move tokens on your behalf</p><CiUnlock className="text-[40px] mt-[10px] text-[#d79920]"></CiUnlock>
@@ -683,9 +683,9 @@ export default function Home() {
             ):steps === 3?(
               <>
                 <div className="w-[100%] flex flex-row text-center items-center">
-                <p className="text-green-600">Step 1   . . . . . . . . </p>
-                <p className="text-green-600">Step 2  . . . . . . . . . .</p>
-                <p className="mr-[3px] ml-[3px] text-green-600">Sucess</p><FaCheckCircle className="text-green-700"></FaCheckCircle>
+                <p className="text-green-600 md:text-[16px] text-[12px]">Step 1   . . . . . . . . </p>
+                <p className="text-green-600 md:text-[16px] text-[12px]">Step 2  . . . . . . . . . .</p>
+                <p className="mr-[3px] ml-[3px] text-green-600 md:text-[16px] text-[12px]">Sucess</p><FaCheckCircle className="text-green-700"></FaCheckCircle>
               </div>
               <div className="w-[100%] flex flex-col mt-[30px] ">
                   <p className="text-[20px]">Get approval to move tokens on your behalf</p><FaCheckCircle className="text-[40px] mt-[10px] text-green-700"></FaCheckCircle>
