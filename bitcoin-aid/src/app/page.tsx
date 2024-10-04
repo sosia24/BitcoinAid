@@ -34,7 +34,6 @@ export default function Home() {
   const { address, setAddress } = useWallet();
   const [isFifteenDays, setFifteenDays] = useState(true);
   const [donateOpen, setDonateOpen] = useState(false);
-  const [aproveOpen, setApproveOpen] = useState(false);
   const [value, setValue] = useState("");
   const [time, setTime] = useState<number>(0);
   const [tempo, setTempo] = useState<number>(0);
@@ -42,6 +41,51 @@ export default function Home() {
   const [tokenPrice, setTokenPrice] = useState<number>(0);
   const [balanceClaimed, setBalanceClaimed] = useState<number>(0);
   const [steps, setSteps] = useState<number>(1)
+  const [paymentIndex, setPaymentIndex] = useState<number>()
+  const [paymentPercentage, setPaymentPercentage] = useState<number>()
+
+  async function getPaymentPercentage(){
+    if(isFifteenDays === true){
+      if(paymentIndex == 0){
+        setPaymentPercentage(0.5);
+        }else if(paymentIndex == 1){
+          setPaymentPercentage(0.4);
+        }else if(paymentIndex == 2){
+          setPaymentPercentage(0.3);
+        }else if(paymentIndex == 3){
+          setPaymentPercentage(0.2);
+        }
+    }else if(isFifteenDays === false){
+      if(paymentIndex == 0){
+        setPaymentPercentage(1.3);
+        }else if(paymentIndex == 1){
+          setPaymentPercentage(1.1);
+        }else if(paymentIndex == 2){
+          setPaymentPercentage(0.9);
+        }else if(paymentIndex == 3){
+          setPaymentPercentage(0.7);
+        }
+    }
+    console.log("Porcentagem: ",paymentPercentage);
+  }
+
+  async function getPaymentIndex(){
+    console.log("value", value);
+    console.log("pool Blancw", poolBalanceValue);
+    if(Number(poolBalanceValue)){
+      if(Number(poolBalanceValue)/10**18 >= Number(1500000000)){
+        setPaymentIndex(0);
+      }else if(Number(poolBalanceValue)/10**18 >= Number(1000000000)){
+        setPaymentIndex(1);
+      }else if(Number(poolBalanceValue)/10**18 >= 500000000){
+        setPaymentIndex(2);
+      }else if(Number(poolBalanceValue)/10**18 < 500000000){
+        setPaymentIndex(3);
+      }
+      getPaymentPercentage();
+    }
+  }
+
 
   interface UserBalance {
     amount: ethers.BigNumberish;
@@ -159,7 +203,9 @@ export default function Home() {
 
   const toggle = () => {
     setFifteenDays((prevState) => !prevState);
+    
   };
+  
 
   const openDonate = () => {
     setDonateOpen((prevState) => !prevState);
@@ -217,12 +263,14 @@ export default function Home() {
       const result = await balanceDonationPool();
       if (result !== null) {
         setPoolBalanceValue(result);
+        getPaymentIndex();
       } else {
         setPoolBalanceValue(null);
       }
     } catch (err) {
       setPoolBalanceValue(0); // Correção para lidar com erros
     }
+    
   }
 
   async function doClaim() {
@@ -248,6 +296,12 @@ export default function Home() {
       setError("It was not possible to make the withdraw, try again: "+error.reason);
     }
   }
+
+
+  useEffect(() =>{
+    getPaymentIndex();
+  },[poolBalanceValue, isFifteenDays]);
+
 
   useEffect(() => {
     async function fetchBalance() {
@@ -310,11 +364,6 @@ export default function Home() {
     }
   };
 
-  const handleApproveOpen = async () => {
-    setApproveOpen((prevState) => !prevState);
-    setValue('');
-    setDonateOpen(false);
-  };
 
   useEffect(() => {
     const checkMetaMask = async () => {
@@ -619,7 +668,12 @@ export default function Home() {
             >
               <p className="font-bold">X</p>
             </button>
-
+            {isFifteenDays?(
+              <p className="text-[16px] mb-[10px]">15-day contribution</p>
+            ):(
+              <p className="text-[16px] mb-[10px]">30-day contribution</p>
+            )}
+            
             {steps === 1?(
               <>
                 <div className="w-[100%] flex flex-row text-center items-center">
@@ -701,7 +755,13 @@ export default function Home() {
             ):(
               ""
             )}
-                   
+            {paymentPercentage && tokenPrice?(
+              <p>You Will Receive: {((Number(value)*tokenPrice) + (Number(value)*tokenPrice)*paymentPercentage).toFixed(2)}$ in {isFifteenDays? "15" : "30"} days </p>
+            ):(
+              ""
+            )}
+              
+              
           </div>
         </div>
       ) : (

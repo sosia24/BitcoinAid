@@ -8,6 +8,7 @@ import Error from "@/componentes/erro";
 import Alert from "@/componentes/alert";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { IoTriangle } from "react-icons/io5";
 import {
   getQueue,
   getCurrentBatch,
@@ -36,7 +37,7 @@ const SimpleSlider = () => {
   const [queueData, setQueueData] = useState<nftQueue[][]>([]);
   const [blockData, setBlockData] = useState<blockData[][]>([]);
   const [nextPaid, setNextPaid] = useState<nftQueue[]>();
-  const [balance, setBalance] = useState<number>();
+  const [balance, setBalance] = useState<number>(0);
   const [valuesNextFour, setValuesNextFour] = useState<number[]>([]);
   const [currentBatch, setCurrentBatch] = useState<number>(0);
   const [addNftOpen, setNftAddOpen] = useState<boolean>(false);
@@ -356,6 +357,14 @@ function getPaymentAmountForQueue(queueIndex: number):number {
   return valueNft;
 }
 
+async function getBalanceFree(){
+  console.log("Chamou");
+    const result = await balanceFree();
+    if(result){
+      setBalance(Number(result));
+    }
+}
+
 async function veSePaga(queue: nftQueue[][]) {
   let balanceToPaidNfts = Number(await balanceFree());
   balanceToPaidNfts = (balanceToPaidNfts / 10 ** 18) * Number(priceToken);
@@ -470,6 +479,7 @@ async function getPriceToken() {
 }
   useEffect(() =>{
       getPriceToken();
+      getBalanceFree();
   })
 
   useEffect(() =>{
@@ -502,8 +512,10 @@ async function getPriceToken() {
             className="mx-auto max-w-[60%] max-h-[55%]"
           ></Image>
           <p>{minted !== undefined? `${minted}/100` : "Loading..."}</p>
-          <p className="mx-auto text-[20px] mt-[10px] font-semibold">{nftCurrentPrice ? `${nftCurrentPrice}$` : "Loading..."}</p>
-          
+          <div className="mt-[15px] w-[100%] flex flex-row items-center justify-center">
+          <p className=" text-[20px] font-semibold">{nftCurrentPrice ? `${nftCurrentPrice}$` : "Loading..."} </p>
+          <IoTriangle className="ml-[10px] text-green-600 "></IoTriangle><p>{nftCurrentPrice ? (Number(nftCurrentPrice)-10)*10:"..."}%</p>
+          </div>
           {allowanceUsdt >= nftCurrentPrice ? (
               <button
                 onClick={buyNft}
@@ -547,16 +559,25 @@ async function getPriceToken() {
             </div>
           </div>
         </div>
-
+        
         <div className=" mx-auto max-w-[100%] overflow-y-auto slider-container p-2 mt-[50px]">
-          <div className="w-[100%] flex flex-row items-center mb-[10px]">
-            <div className="w-[10px] h-[10px] bg-yellow-500 ml-[15px]"></div>
-            <p className="ml-[5px]">All Nfts</p>
-            <div className=" bg-[#008510] w-[10px] h-[10px]  ml-[15px]"></div>
-            <p className="ml-[5px]">Next paid nfts</p>
-            <div className="bg-blue-600 w-[10px] h-[10px] ml-[15px]"></div>
-            <p className="ml-[5px]">Your Nft's</p>
+          <div className="w-[100%] flex lg:flex-row flex-col items-center mb-[30px] justify-end">
+
+          <div className="flex lg:w-[50%] w-[100%] p-6 border-l-2 border-gray-600 flex-col">
+            <p className="text-[40px] font-semibold">{((balance/10**18)*priceToken).toFixed(2)}$ </p>
+            <p className="text-[16px] text-[#d79920] font-semibold">Balance to Paid Nft</p>
+          </div>  
+
+            <div className="lg:w-[40%] w-[100%] flex flex-row items-center lg:justify-center ">
+              <div className="w-[10px] h-[10px] bg-yellow-500 ml-[15px]"></div>
+              <p className="ml-[5px]">All Nfts</p>
+              <div className=" bg-[#008510] w-[10px] h-[10px]  ml-[15px]"></div>
+              <p className="ml-[5px]">Next paid nfts</p>
+              <div className="bg-blue-600 w-[10px] h-[10px] ml-[15px]"></div>
+              <p className="ml-[5px]">Your Nft's</p>
+            </div>
           </div>
+          
         </div>
           {newQueue.map((dataSet, index) => {
             const hasUserData = dataSet.some((item) => item.user);
