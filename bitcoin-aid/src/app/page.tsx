@@ -160,7 +160,8 @@ export default function Home() {
 
   const handleMaxClick = () => {
     if (balanceValue !== null) {
-      setValue(ethers.formatEther(balanceValue));
+      const etherValue = parseFloat(ethers.formatEther(balanceValue));
+      setValue(Math.floor(etherValue).toString());
     }
   };
 
@@ -759,6 +760,11 @@ export default function Home() {
               <p>You Will Receive: {((Number(value)*tokenPrice) + (Number(value)*tokenPrice)*paymentPercentage).toFixed(2)}$ in {isFifteenDays? "15" : "30"} days </p>
             ):(
               ""
+            )}
+            {address?(
+              ""
+            ):(
+                <p className="text-red-600">You need to connect your wallet</p>
             )}
               
               

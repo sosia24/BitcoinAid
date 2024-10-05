@@ -757,7 +757,7 @@ async function getPriceToken() {
                   Approve USDT
                 </button>
               ) : (
-                ""
+                <p className="text-red-600">You need to connect your wallet!</p>
               )}
             </div>
           </div>

@@ -228,7 +228,7 @@ export default function Dashboard() {
         className="mx-auto max-w-[60%] max-h-[55%]"
         />
 
-        <p className="mt-[20px] text-[22px] font-semibold">You Have {String(btcaReward / BigInt(10 ** 18))} BTCA to WithDraw</p>
+        <p className="mt-[20px] text-[22px] font-semibold">You Have {String(btcaReward / BigInt(10 ** 18))} BTCA to Withdraw</p>
       </div>
       <button
           onClick={handleClaim}
