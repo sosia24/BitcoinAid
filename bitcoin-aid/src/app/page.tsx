@@ -95,12 +95,17 @@ export default function Home() {
   }
 
   async function getPriceToken() {
+    const retryInterval = 2000; // Tempo em milissegundos entre tentativas
+    const maxAttempts = 10; // Número máximo de tentativas
+
+    for (let attempt = 0; attempt < maxAttempts; attempt++) {
     const result = await getTokenPrice();
     if (result) {
       setTokenPrice(Number(result) / 1000000);
-    } else {
-      setTokenPrice(0);
+      return;
     }
+    await new Promise(resolve => setTimeout(resolve, retryInterval));
+  }
   }
 
   const verifyAddress = (address: any) => {

@@ -294,7 +294,7 @@ const SimpleSlider = () => {
     };
     const maxSlidesToShow = 4;
     return {
-      dots: true,
+      dots: false,
       infinite: false, // Desativa o loop infinito
       speed: 500,
       slidesToShow: Math.min(maxSlidesToShow, dataSetLength), // Mostra no máximo 4 slides ou menos

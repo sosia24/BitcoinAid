@@ -1,14 +1,19 @@
+
 import type { Metadata } from "next";
 import { Libre_Franklin } from "next/font/google";
+import { useState } from "react";
 import "./globals.css";
 import Header from "../componentes/header";
 import Footer from "@/componentes/footer";
 import { WalletProvider } from "@/services/walletContext";
 import Image from "next/image";
 import { Analytics } from "@vercel/analytics/react";
-import { FaTelegramPlane } from "react-icons/fa";
-import { FaWhatsapp } from "react-icons/fa";
+import Links from "@/componentes/links";
+
 const franklin = Libre_Franklin({ subsets: ["latin"] });
+import "flag-icons/css/flag-icons.min.css";
+
+
 
 export const metadata: Metadata = {
   title: "BTCA",
@@ -33,20 +38,11 @@ export default function RootLayout({
           <Header />
           <Analytics />
           <main className={franklin.className}>{children}</main>
-          <a href="https://t.me/+JbfwsxCsJYwyM2Zh" target="_blank">
-           <div className="fixed md:bottom-[90px] bottom-[80px] right-[2%] bg-blue-500 text-white p-2 rounded-full shadow-lg hover:bg-blue-600 transition transform hover:scale-110">
-              <FaTelegramPlane className="md:w-6 md:h-6 w-4 h-4" />
-           </div>
-          </a>
-
-          <a href="https://chat.whatsapp.com/FEUqYqQFIIR50DdWB1gpxj" target="_blank">
-           <div className="fixed md:bottom-[140px] bottom-[120px] right-[2%] bg-green-500 text-white p-2 rounded-full shadow-lg hover:bg-green-600 transition transform hover:scale-110">
-              <FaWhatsapp className="md:w-6 md:h-6 w-4 h-4" />
-           </div>
-          </a>
-
+          
+          <Links/>
           <Footer/>
         </WalletProvider>
+
       </body>
     </html>
   );
