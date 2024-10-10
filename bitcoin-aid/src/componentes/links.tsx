@@ -82,7 +82,7 @@ export default function Links() {
                         </a>
                         <a href="https://polygonscan.com/address/0x8E60D47Ec05dAe2Bd723600c2B3CD8321D775d22" target="_blank" rel="noopener noreferrer">
                             <div className="flex flex-row bg-yellow-600 hover:bg-yellow-700 text-white rounded-full shadow-lg mt-[15px] transition transform hover:scale-110">
-                                <Image alt="btca logo" src={"/images/logoBTCA-PNG.png"} width={100} height={100} className="w-10 h-10 mt-[2px]"></Image>
+                                <Image alt="btca logo" src={"/images/LogoBTCA-PNG.png"} width={100} height={100} className="w-10 h-10 mt-[2px]"></Image>
                                 <p className="ml-[-5px] text-[18px] p-2">BTCA Token</p>
                             </div>
                         </a>

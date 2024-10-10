@@ -703,8 +703,6 @@ async function getPriceToken() {
                       Will Receive: {getPaymentAmountForQueue(Number(item.batchLevel))}$
                       </p>
                     </div>
-                    
-                    
                   </div>
                   
                   ):(
