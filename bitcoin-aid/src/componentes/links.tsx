@@ -52,6 +52,14 @@ export default function Links() {
                             </div>
                         </a>
 
+                        <a href="https://t.me/BTCAIDBrasil" target="_blank" rel="noopener noreferrer">
+                            <div className="flex flex-row bg-blue-500 text-white p-2 rounded-full shadow-lg mt-[15px] hover:bg-blue-600 transition transform hover:scale-110">
+                                <FaTelegramPlane className=" w-6 h-6" />
+                                <p className="ml-[10px] text-[18px]">Telegram Brasil</p>
+                                <span className="fi fi-br ml-[20px]"></span>
+                            </div>
+                        </a>
+
                         <a href="https://chat.whatsapp.com/FEUqYqQFIIR50DdWB1gpxj" target="_blank" rel="noopener noreferrer">
                             <div className="flex flex-row bg-green-500 text-white p-2 rounded-full shadow-lg mt-[15px] hover:bg-green-600 transition transform hover:scale-110">
                                 <FaWhatsapp className=" w-6 h-6" />

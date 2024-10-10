@@ -54,6 +54,8 @@ const SimpleSlider = () => {
   const [priceToken, setPriceToken] = useState<number>(0);
   const [lastBatchWithNft, setLastBatchWithNft] = useState<number>(0);
   const [allowanceUsdt, setAllowanceUsdt] = useState<number>(0);
+  const [totalNftToPaid, setTotalNftToPaid] = useState<number>(0)
+
 
   async function getLastBatch(){
     const result = await getCurrentBatch();
@@ -409,6 +411,7 @@ async function veSePaga(queue: nftQueue[][]) {
             batchLevel: element.batchLevel,
             nextPaied: true,
           });
+          setTotalNftToPaid(prevValue => prevValue+1);
 
           // Remove o elemento da fila após o processamento
           if (first) {
@@ -487,6 +490,9 @@ async function getPriceToken() {
     veSePaga(queueData);
   }
   },[queueData, priceToken]);
+
+
+
   return (
     <>
       {error && <Error msg={error} onClose={clearError} />}
@@ -589,13 +595,15 @@ async function getPriceToken() {
               <h2 className="text-xl font-semibold mb-[5px]">
                 Queue {index + 1}
               </h2>
+             
               
               <Slider 
                 {...settings(dataSet.length)}
                 className=" w-full sm:max-w-[90%] max-w-[95%] lg:ml-[30px] ml-[10px] h-full mt-[10px] lg:text-[16px] sm:text-[12px] text-[10px] mb-[120px]">
                 {dataSet.map((item, itemIndex) => (
-                  item.user && item.nextPaied === false && item.user.toLowerCase() === address?(
+                  item.user && item.nextPaied === false && item.user.toLowerCase() === address?.toLowerCase()?(
                   <div key={itemIndex} className="">
+                    
                     <div className="mt-[50px] nftUserPiscando p-2 lg:p-4 caixa3d transform transition-transform">
                       <div className="">
                       <p className="font-semibold">{address && item.user.toLowerCase() == address.toLowerCase() ? "Your" : ""}</p>
@@ -618,6 +626,7 @@ async function getPriceToken() {
                       <p>
                       Will Receive: {getPaymentAmountForQueue(Number(item.batchLevel))}$
                       </p>
+                      
                     </div>
                   </div>
                   ) : item.user && item.nextPaied === true ?(
@@ -652,7 +661,7 @@ async function getPriceToken() {
                           </p>
 
 
-                           {item.user.toLowerCase() === address?.toLocaleLowerCase()? (
+                           {item.user.toLowerCase() === address?.toLowerCase() && totalNftToPaid >=4? (
                             <button
                               onClick={() =>
                                 doClaimQueue(
@@ -694,15 +703,20 @@ async function getPriceToken() {
                       Will Receive: {getPaymentAmountForQueue(Number(item.batchLevel))}$
                       </p>
                     </div>
+                    
+                    
                   </div>
+                  
                   ):(
                     ""
                   )
                 ))}
+
               </Slider>
             </div> 
             ) : null
         })}
+        
         </div>
 
       {addNftOpen ? (
