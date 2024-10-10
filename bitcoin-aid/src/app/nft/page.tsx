@@ -594,11 +594,11 @@ async function getPriceToken() {
                 {...settings(dataSet.length)}
                 className=" w-full sm:max-w-[90%] max-w-[95%] lg:ml-[30px] ml-[10px] h-full mt-[10px] lg:text-[16px] sm:text-[12px] text-[10px] mb-[120px]">
                 {dataSet.map((item, itemIndex) => (
-                  item.user && item.nextPaied === false && item.user === address?(
+                  item.user && item.nextPaied === false && item.user.toLowerCase() === address?(
                   <div key={itemIndex} className="">
                     <div className="mt-[50px] nftUserPiscando p-2 lg:p-4 caixa3d transform transition-transform">
                       <div className="">
-                      <p className="font-semibold">{address && item.user == address ? "Your" : "N/A"}</p>
+                      <p className="font-semibold">{address && item.user.toLowerCase() == address.toLowerCase() ? "Your" : ""}</p>
                         <h3>Position in the queue: {itemIndex + 1}</h3>
                       </div>
                       <p>
@@ -669,7 +669,7 @@ async function getPriceToken() {
                           )}
                       </div>
                     </div>
-                  ) : item.user && item.nextPaied === false && item.user != address?(
+                  ) : item.user && item.nextPaied === false && item.user.toLowerCase() != address?.toLowerCase()?(
                     <div key={itemIndex} className="">
                     <div className="mt-[50px] nftPiscando p-2 lg:p-4 caixa3d transform transition-transform">
                       <div className="">
