@@ -8,11 +8,14 @@ import {
   getTotalNftReward,
   getTotalBtcaToClaim,
   claimBtcaQueue,
+  getQueue,
 } from "@/services/Web3Services";
 import { useEffect, useState } from "react";
 import { useWallet } from "@/services/walletContext";
 import Error from "@/componentes/erro";
 import Alert from "@/componentes/alert";
+import Slider from "react-slick";
+import { blockData, nftQueue } from "@/services/types";
 
 export default function Dashboard() {
   const [currentBatch, setCurrentBatch] = useState<number>(0);
@@ -26,6 +29,9 @@ export default function Dashboard() {
   const [alert, setAlert] = useState("");
   const [temNft, setTemNft] = useState<boolean>(false);
   const [claimOpen, setClaimOpen] = useState<boolean>(false); 
+
+
+
 
   async function getNftUser() {
     const result = await getCurrentBatch();
@@ -96,6 +102,7 @@ export default function Dashboard() {
     }
   }, [nftByBatch]);
   
+
 
   return (
     <>
@@ -200,7 +207,7 @@ export default function Dashboard() {
             
           </div>
         </div>
-      </div>
+        </div>
       
       
   {claimOpen || btcaReward?(
@@ -241,7 +248,6 @@ export default function Dashboard() {
   ):(
     ""
   )}
-        
     </>
     
   );

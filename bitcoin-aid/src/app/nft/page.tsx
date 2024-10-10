@@ -297,7 +297,7 @@ const SimpleSlider = () => {
       dots: false,
       infinite: false, // Desativa o loop infinito
       speed: 500,
-      slidesToShow: Math.min(maxSlidesToShow, dataSetLength), // Mostra no máximo 4 slides ou menos
+      slidesToShow:   Math.min(maxSlidesToShow, dataSetLength), // Mostra no máximo 4 slides ou menos
       slidesToScroll: 1, // Desliza no máximo 1 slide por vez
       adaptiveHeight: true,
       arrows: dataSetLength > maxSlidesToShow, // Exibe setas se houver mais que 4 slides
@@ -589,6 +589,7 @@ async function getPriceToken() {
               <h2 className="text-xl font-semibold mb-[5px]">
                 Queue {index + 1}
               </h2>
+              
               <Slider 
                 {...settings(dataSet.length)}
                 className=" w-full sm:max-w-[90%] max-w-[95%] lg:ml-[30px] ml-[10px] h-full mt-[10px] lg:text-[16px] sm:text-[12px] text-[10px] mb-[120px]">
@@ -625,8 +626,8 @@ async function getPriceToken() {
                         <div className="">
                         <p className="font-semibold">
                               {address &&
-                              item.user ==
-                                address
+                              item.user.toLowerCase() ==
+                                address.toLowerCase()
                                 ? "Your"
                                 : ""}
                             </p>
@@ -651,7 +652,7 @@ async function getPriceToken() {
                           </p>
 
 
-                           {item.user === address? (
+                           {item.user.toLowerCase() === address?.toLocaleLowerCase()? (
                             <button
                               onClick={() =>
                                 doClaimQueue(
