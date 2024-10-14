@@ -31,6 +31,9 @@ import { nftQueue } from "@/services/types";
 import { blockData } from "@/services/types";
 import Image from "next/image";
 import { BlockList } from "net";
+import React, { useRef } from 'react';
+import { FaAngleDoubleLeft } from "react-icons/fa";
+import { FaAngleDoubleRight } from "react-icons/fa";
 
 const SimpleSlider = () => {
   const [loading, setLoading] = useState(false);
@@ -287,6 +290,21 @@ const SimpleSlider = () => {
     }
   }, [currentBatch]);
 
+  const slidersRefs = useRef<(Slider | null)[]>([]);
+  const goToLastSlide = (index: number) => {
+    const sliderRef = slidersRefs.current[index];
+    if (sliderRef) {
+      const totalSlides = React.Children.count(sliderRef.props.children);
+      sliderRef.slickGoTo(totalSlides - 1);
+    }
+  };
+
+  const goToFirstSlide = (index: number) => {
+    const sliderRef = slidersRefs.current[index];
+    if (sliderRef) {
+      sliderRef.slickGoTo(0);
+    }
+  };
   const settings = (dataSetLength: number) => {
     const handleBeforeChange = (next: number) => {
       // Previne ir além do número total de slides
@@ -298,7 +316,7 @@ const SimpleSlider = () => {
     return {
       dots: false,
       infinite: false, // Desativa o loop infinito
-      speed: 500,
+      speed: 300,
       slidesToShow:   Math.min(maxSlidesToShow, dataSetLength), // Mostra no máximo 4 slides ou menos
       slidesToScroll: 1, // Desliza no máximo 1 slide por vez
       adaptiveHeight: true,
@@ -306,7 +324,8 @@ const SimpleSlider = () => {
       swipe: true,
       touchMove: true,
       draggable: dataSetLength > 1,
-      beforeChange: handleBeforeChange, // Permite arrastar se houver mais de 1 slide
+      beforeChange: handleBeforeChange,
+       // Permite arrastar se houver mais de 1 slide
 
       responsive: [
         {
@@ -596,11 +615,27 @@ async function getPriceToken() {
                 Queue {index + 1}
               </h2>
              
+             <div className="w-full flex flex-row justify-between items-end">
+                <button onClick={() => goToFirstSlide(index)} className="mt-4 p-2 ml-[35px] glossy text-white rounded">
+                  <FaAngleDoubleLeft></FaAngleDoubleLeft>
+                </button>
+                <button onClick={() => goToLastSlide(index)} className="mt-4 p-2 mr-[35px] glossy  text-white rounded">
+                  <FaAngleDoubleRight></FaAngleDoubleRight>
+                </button>
+              </div>
+
               
+              <div key={index}>
               <Slider 
+               ref={(el) => {
+                slidersRefs.current[index] = el;
+              }}
                 {...settings(dataSet.length)}
                 className=" w-full sm:max-w-[90%] max-w-[95%] lg:ml-[30px] ml-[10px] h-full mt-[10px] lg:text-[16px] sm:text-[12px] text-[10px] mb-[120px]">
+                  
+                  
                 {dataSet.map((item, itemIndex) => (
+                  
                   item.user && item.nextPaied === false && item.user.toLowerCase() === address?.toLowerCase()?(
                   <div key={itemIndex} className="">
                     
@@ -709,13 +744,14 @@ async function getPriceToken() {
                     ""
                   )
                 ))}
-
+       
               </Slider>
+              </div>
             </div> 
             ) : null
         })}
-        
         </div>
+        
 
       {addNftOpen ? (
         <div className="fixed inset-0 flex items-center justify-center z-50">
