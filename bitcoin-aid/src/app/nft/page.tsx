@@ -201,7 +201,8 @@ const SimpleSlider = () => {
   };
 
   const handleSubmit = async () => {
-      if (address && lastBatchWithNft) {
+    setError("We are under maintenance, please try again later");
+      /*if (address && lastBatchWithNft) {
         const result = await haveNft(address, lastBatchWithNft);
         if (result > 0) {
           setNftAddOpen(false);
@@ -222,6 +223,7 @@ const SimpleSlider = () => {
           setError("You don't have any NFTs from this batch");
         }
       }
+        */
   };
 
 

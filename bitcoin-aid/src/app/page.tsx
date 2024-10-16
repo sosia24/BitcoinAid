@@ -213,9 +213,10 @@ export default function Home() {
   };
   
 
-  const openDonate = () => {
-    setDonateOpen((prevState) => !prevState);
-    setSteps(1);
+  const openDonate = async () => {
+    setError("We are under maintenance, please try again later");
+    /*setDonateOpen((prevState) => !prevState);
+    setSteps(1);*/
   };
 
   const clearError = () => {
