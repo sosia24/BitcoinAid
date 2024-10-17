@@ -504,7 +504,7 @@ export default function Home() {
                 {address ? (
                   balanceValue !== null ? (
                     <>
-                      <p className="text-[25px] font-semibold">WALLET BALANCE</p>
+                      <p className="md:text-[25px] text-[20px] font-semibold">WALLET BALANCE</p>
                       <span className="font-semibold text-[22px]">
                         {" "}
                         {Number(ethers.formatEther(balanceValue)).toFixed(
@@ -515,14 +515,14 @@ export default function Home() {
                     </>
                   ) : (
                     <>
-                      <p className="text-[25px]  font-semibold">WALLET BALANCE</p>
-                      <p className="text-[22px] font-semibold">00.0000 BTCA</p>
+                      <p className="md:text-[25px] text-[20px]  font-semibold">WALLET BALANCE</p>
+                      <p className="md:text-[22px] text-[16px]  font-semibold">00.0000 BTCA</p>
                     </>
                   )
                 ) : (
                   <>
-                    <p className="text-[25px]  font-semibold">WALLET BALANCE</p>
-                    <p className="text-[22px] font-semibold">---- BTCA</p>
+                    <p className="md:text-[25px] text-[20px]  font-semibold">WALLET BALANCE</p>
+                    <p className="md:text-[22px] text-[16px] font-semibold">---- BTCA</p>
                   </>
                 )}
                 <p className="text-[16px] text-[#eda921]">

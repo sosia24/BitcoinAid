@@ -639,7 +639,7 @@ async function getPriceToken() {
                   Distribute Balance
                   </button>
                 ):(
-                  <button className="p-2 border-2 border-white rounded-xl cursor-not-allowed">
+                  <button className="p-2 border-2 md:text-[16px] text-[12px]  border-white rounded-xl cursor-not-allowed">
                   Distribute Balance
                   </button>
                 )}
