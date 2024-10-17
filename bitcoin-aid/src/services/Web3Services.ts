@@ -2,6 +2,7 @@ import { ethers } from "ethers";
 import tokenAbi from "./Token.abi.json";
 import donationAbi from "./Donation.abi.json";
 import queueAbi from "./Queue.abi.json";
+import queueNewAbi from "./QueueNew.abi.json"
 import collectionAbi from "./Collection.abi.json";
 import usdtAbi from "./Usdt.abi.json";
 import oracleAbi from "./Oracle.abi.json";
@@ -9,10 +10,12 @@ const CHAIN_ID = process.env.NEXT_PUBLIC_CHAIN_ID;
 const TOKEN_ADDRESS = process.env.NEXT_PUBLIC_TOKEN_ADDRESS;
 const DONATION_ADDRESS = process.env.NEXT_PUBLIC_DONATION_ADDRESS;
 const QUEUE_ADDRESS = process.env.NEXT_PUBLIC_QUEUE_ADDRESS;
+const NEWQUEUE_ADDRESS = process.env.NEXT_PUBLIC_NEWQUEUE_ADDRESS;
 const COLLECTION_ADDRESS = process.env.NEXT_PUBLIC_COLLECTION_ADDRESS;
 const USDT_ADDRESS = process.env.NEXT_PUBLIC_USDT_ADDRESS;
 const ORACLE_ADDRESS = process.env.NEXT_PUBLIC_ORACLE_ADDRESS;
 const RPC_POLYGON = process.env.NEXT_PUBLIC_RPC_POLYGON;
+
 
 import { nftQueue } from "./types";
 import { promises } from "dns";
@@ -174,8 +177,8 @@ export async function getQueue(batchLevel: number): Promise<nftQueue[]> {
   const provider = new ethers.JsonRpcProvider(RPC_POLYGON);
 
   const queueContract = new ethers.Contract(
-    QUEUE_ADDRESS ? QUEUE_ADDRESS : "",
-    queueAbi,
+    NEWQUEUE_ADDRESS ? NEWQUEUE_ADDRESS : "",
+    queueNewAbi,
     provider
   );
 
@@ -190,8 +193,8 @@ export async function addQueue(batch: number) {
   const signer = await provider.getSigner();
 
   const queueContract = new ethers.Contract(
-    QUEUE_ADDRESS ? QUEUE_ADDRESS : "",
-    queueAbi,
+    NEWQUEUE_ADDRESS ? NEWQUEUE_ADDRESS : "",
+    queueNewAbi,
     signer
   );
 
@@ -265,8 +268,8 @@ export async function nextToPaid() {
   const provider = new ethers.JsonRpcProvider(RPC_POLYGON);
 
   const getNextFour = new ethers.Contract(
-    QUEUE_ADDRESS ? QUEUE_ADDRESS : "",
-    queueAbi,
+    NEWQUEUE_ADDRESS ? NEWQUEUE_ADDRESS : "",
+    queueNewAbi,
     provider
   );
 
@@ -278,8 +281,8 @@ export async function totalNfts() {
   const provider = new ethers.JsonRpcProvider(RPC_POLYGON);
 
   const getNextFour = new ethers.Contract(
-    QUEUE_ADDRESS ? QUEUE_ADDRESS : "",
-    queueAbi,
+    NEWQUEUE_ADDRESS ? NEWQUEUE_ADDRESS : "",
+    queueNewAbi,
     provider
   );
 
@@ -291,8 +294,8 @@ export async function balanceFree() {
   const provider = new ethers.JsonRpcProvider(RPC_POLYGON);
 
   const getNextFour = new ethers.Contract(
-    QUEUE_ADDRESS ? QUEUE_ADDRESS : "",
-    queueAbi,
+    NEWQUEUE_ADDRESS ? NEWQUEUE_ADDRESS : "",
+    queueNewAbi,
     provider
   );
 
@@ -326,7 +329,7 @@ export async function approveToAll() {
     collectionAbi,
     signer
   );
-  const tx = await doApprove.setApprovalForAll(QUEUE_ADDRESS, true);
+  const tx = await doApprove.setApprovalForAll(NEWQUEUE_ADDRESS, true);
   await tx.wait();
 }
 
@@ -363,8 +366,8 @@ export async function claimQueue(index: number, queueId: number) {
   const signer = await provider.getSigner();
 
   const doClaim = new ethers.Contract(
-    QUEUE_ADDRESS ? QUEUE_ADDRESS : "",
-    queueAbi,
+    NEWQUEUE_ADDRESS ? NEWQUEUE_ADDRESS : "",
+    queueNewAbi,
     signer
   );
   const tx = await doClaim.claim(index, queueId);
@@ -445,6 +448,21 @@ export async function getTotalNftReward() {
   const result = await contract.totalClaimed(signer.address);
   return result;
 }
+
+
+export async function getTotalNftRewardNew() {
+  const provider = await getProvider();
+  const signer = await provider.getSigner();
+
+  const contract = new ethers.Contract(
+    NEWQUEUE_ADDRESS ? NEWQUEUE_ADDRESS : "",
+    queueNewAbi,
+    signer
+  );
+
+  const result = await contract.totalClaimed(signer.address);
+  return result;
+}
 export async function getTotalBtcaToClaim() {
   const provider = await getProvider();
   const signer = await provider.getSigner();
@@ -458,6 +476,21 @@ export async function getTotalBtcaToClaim() {
   const result = await contract.tokensToWithdraw(signer.address);
   return result;
 }
+
+export async function getTotalBtcaToClaimNew() {
+  const provider = await getProvider();
+  const signer = await provider.getSigner();
+
+  const contract = new ethers.Contract(
+    NEWQUEUE_ADDRESS ? NEWQUEUE_ADDRESS : "",
+    queueNewAbi,
+    signer
+  );
+
+  const result = await contract.tokensToWithdraw(signer.address);
+  return result;
+}
+
 export async function claimBtcaQueue() {
   const provider = await getProvider();
   const signer = await provider.getSigner();
@@ -465,6 +498,22 @@ export async function claimBtcaQueue() {
   const contract = new ethers.Contract(
     QUEUE_ADDRESS ? QUEUE_ADDRESS : "",
     queueAbi,
+    signer
+  );
+
+  const tx = await contract.withdrawTokens();
+  await tx.wait();
+  return true;
+}
+
+
+export async function claimBtcaQueueNew() {
+  const provider = await getProvider();
+  const signer = await provider.getSigner();
+
+  const contract = new ethers.Contract(
+    NEWQUEUE_ADDRESS ? NEWQUEUE_ADDRESS : "",
+    queueNewAbi,
     signer
   );
 

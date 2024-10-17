@@ -108,7 +108,7 @@ const SimpleSlider = () => {
         if (result) {
           setLoading(false);
           setAlert(
-            "Be happy! Your NFTs have already deposited their earnings into your wallet"
+            "Be happy! The distribution was a success"
           );
           fetchQueue();
         }
@@ -201,8 +201,7 @@ const SimpleSlider = () => {
   };
 
   const handleSubmit = async () => {
-    setError("We are under maintenance, please try again later");
-      /*if (address && lastBatchWithNft) {
+      if (address && lastBatchWithNft) {
         const result = await haveNft(address, lastBatchWithNft);
         if (result > 0) {
           setNftAddOpen(false);
@@ -223,7 +222,6 @@ const SimpleSlider = () => {
           setError("You don't have any NFTs from this batch");
         }
       }
-        */
   };
 
 
@@ -512,7 +510,18 @@ async function getPriceToken() {
   }
   },[queueData, priceToken]);
 
-
+  async function verifyBatchToPaid(){
+    for(let i = 0; i < currentBatch; i++){
+      if(newQueue[i][0] && totalNftToPaid >= 4){
+        doClaimQueue(
+          Number(newQueue[i][0].index),
+          Number(newQueue[i][0].batchLevel)
+        )
+        return;
+      }
+    }
+    setAlert("There is not enough balance to pay for 4 NFTs");
+  }
 
   return (
     <>
@@ -621,6 +630,20 @@ async function getPriceToken() {
                 <button onClick={() => goToFirstSlide(index)} className="mt-4 p-2 ml-[35px] glossy text-white rounded">
                   <FaAngleDoubleLeft></FaAngleDoubleLeft>
                 </button>
+
+                {totalNftToPaid >= 4?(
+                  <button className="p-2 glossy_claim rounded-xl hover:bg-green-700"  
+                  onClick={() =>
+                  verifyBatchToPaid()
+                  }>
+                  Distribute Balance
+                  </button>
+                ):(
+                  <button className="p-2 border-2 border-white rounded-xl cursor-not-allowed">
+                  Distribute Balance
+                  </button>
+                )}
+
                 <button onClick={() => goToLastSlide(index)} className="mt-4 p-2 mr-[35px] glossy  text-white rounded">
                   <FaAngleDoubleRight></FaAngleDoubleRight>
                 </button>
@@ -697,8 +720,7 @@ async function getPriceToken() {
                                 ))}$
                           </p>
 
-
-                           {item.user.toLowerCase() === address?.toLowerCase() && totalNftToPaid >=4? (
+                           {totalNftToPaid >=4? (
                             <button
                               onClick={() =>
                                 doClaimQueue(
