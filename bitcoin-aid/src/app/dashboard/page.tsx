@@ -98,7 +98,7 @@ export default function Dashboard() {
       setAlert(""); // Clear any previous alerts
 
       if (address) {
-        await claimBtcaQueue();
+        await claimBtcaQueueNew();
         fetchRewards();
         setAlert("Claim successful!"); // Success alert
       }
