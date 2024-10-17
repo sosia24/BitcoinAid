@@ -73,17 +73,19 @@ export default function Dashboard() {
   }
 
   async function handleClaim() {
+    setLoading(true);
     try {
-      setLoading(true);
       setError(""); // Clear any previous errors
       setAlert(""); // Clear any previous alerts
 
       if (address) {
         await claimBtcaQueue();
         fetchRewards();
+        setLoading(true);
         setAlert("Claim successful!"); // Success alert
       }
     } catch (err: any) {
+      setLoading(true);
       setError(err.reason || "An error occurred during the claim."); // Capture error reason
       console.error("Error claiming BTCA:", err);
     } finally {
@@ -92,17 +94,20 @@ export default function Dashboard() {
   }
 
   async function handleClaimNew() {
+    setLoading(true);
     try {
-      setLoading(true);
       setError(""); // Clear any previous errors
       setAlert(""); // Clear any previous alerts
 
       if (address) {
         await claimBtcaQueueNew();
         fetchRewards();
-        setAlert("Claim successful!"); // Success alert
+        setLoading(false);
+        setAlert("Claim successful!");
+         // Success alert
       }
     } catch (err: any) {
+      setLoading(false);
       setError(err.reason || "An error occurred during the claim."); // Capture error reason
       console.error("Error claiming BTCA:", err);
     } finally {
