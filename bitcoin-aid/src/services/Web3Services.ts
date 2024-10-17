@@ -316,7 +316,7 @@ export async function isApproveToQueue(address: String) {
     collectionAbi,
     signer
   );
-  const approve = await getApprove.isApprovedForAll(address, QUEUE_ADDRESS);
+  const approve = await getApprove.isApprovedForAll(address, NEWQUEUE_ADDRESS);
   return approve;
 }
 
