@@ -633,7 +633,7 @@ async function getPriceToken() {
                   <FaAngleDoubleLeft></FaAngleDoubleLeft>
                 </button>
 
-                {totalNftToPaid >= 4 && Number(balanceFree) >= 2*(3 * (10 * 2^index))?(
+                {totalNftToPaid >= 4 ?(
                   <button className="p-2 glossy_claim rounded-xl hover:bg-green-700"  
                   onClick={() =>
                   verifyBatchToPaid()
@@ -722,7 +722,7 @@ async function getPriceToken() {
                                 ))}$
                           </p>
 
-                           {totalNftToPaid >=4 && Number(balanceFree) >= 4*(3 * (10 * 2^index))? (
+                           {totalNftToPaid >=4 ? (
                             <button
                               onClick={() =>
                                 doClaimQueue(
