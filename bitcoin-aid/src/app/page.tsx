@@ -66,12 +66,9 @@ export default function Home() {
           setPaymentPercentage(0.7);
         }
     }
-    console.log("Porcentagem: ",paymentPercentage);
   }
 
   async function getPaymentIndex(){
-    console.log("value", value);
-    console.log("pool Blancw", poolBalanceValue);
     if(Number(poolBalanceValue)){
       if(Number(poolBalanceValue)/10**18 >= Number(1500000000)){
         setPaymentIndex(0);

@@ -122,8 +122,15 @@ export async function balanceDonationPool() {
     provider
   );
 
-  const donationBalance = await donationContract.distributionBalance();
-  return donationBalance;
+  while(true){
+    try{
+    const donationBalance = await donationContract.distributionBalance();
+    return donationBalance;
+  }catch(err){
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+  }
+  }
+
 }
 
 export async function userBalanceDonation(address: string) {
@@ -189,7 +196,7 @@ export async function getQueue(batchLevel: number): Promise<nftQueue[]> {
       );
       return getQueueDetails;
     }catch(err){
-
+      await new Promise((resolve) => setTimeout(resolve, 1000));
     }
   }
 
