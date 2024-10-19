@@ -387,6 +387,7 @@ async function getBalanceFree(){
 }
 
 async function veSePaga(queue: nftQueue[][]) {
+  setTotalNftToPaid(0);
   let balanceToPaidNfts = Number(await balanceFree());
   balanceToPaidNfts = (balanceToPaidNfts / 10 ** 18) * Number(priceToken);
   let i = 0; // Índice da fila atual
@@ -512,6 +513,7 @@ async function getPriceToken() {
 
   async function verifyBatchToPaid(){
     for(let i = 0; i < currentBatch; i++){
+      console.log("Nft to Paid: ", totalNftToPaid);
       if(newQueue[i][0] && totalNftToPaid >= 4){
         doClaimQueue(
           Number(newQueue[i][0].index),
@@ -631,7 +633,7 @@ async function getPriceToken() {
                   <FaAngleDoubleLeft></FaAngleDoubleLeft>
                 </button>
 
-                {totalNftToPaid >= 4?(
+                {totalNftToPaid >= 4 && Number(balanceFree) >= 2*(3 * (10 * 2^index))?(
                   <button className="p-2 glossy_claim rounded-xl hover:bg-green-700"  
                   onClick={() =>
                   verifyBatchToPaid()
@@ -720,7 +722,7 @@ async function getPriceToken() {
                                 ))}$
                           </p>
 
-                           {totalNftToPaid >=4? (
+                           {totalNftToPaid >=4 && Number(balanceFree) >= 4*(3 * (10 * 2^index))? (
                             <button
                               onClick={() =>
                                 doClaimQueue(

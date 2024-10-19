@@ -182,10 +182,17 @@ export async function getQueue(batchLevel: number): Promise<nftQueue[]> {
     provider
   );
 
-  const getQueueDetails: nftQueue[] = await queueContract.getQueueDetails(
-    batchLevel
-  );
-  return getQueueDetails;
+  while(true){
+    try{
+      const getQueueDetails: nftQueue[] = await queueContract.getQueueDetails(
+        batchLevel
+      );
+      return getQueueDetails;
+    }catch(err){
+
+    }
+  }
+
 }
 
 export async function addQueue(batch: number) {
@@ -299,12 +306,15 @@ export async function balanceFree() {
     provider
   );
 
-  try {
-    const balance = await getNextFour.balanceFree();
-    return balance;
-  } catch (err) {
-    return false;
-  }
+  while (true) {
+    try {
+      const balance = await getNextFour.balanceFree();
+      return balance; // Retorna quando obtiver um valor válido
+    } catch (err) {
+      // Espera antes de tentar novamente para evitar sobrecarregar o servidor
+      await new Promise((resolve) => setTimeout(resolve, 1000)); // Espera 1 segundo
+    }
+}
 }
 
 export async function isApproveToQueue(address: String) {
