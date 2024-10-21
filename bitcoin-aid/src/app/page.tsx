@@ -284,7 +284,7 @@ export default function Home() {
         setLoading(false);
         setAlert(
           `Your $${
-            Number(balanceClaimed.toFixed(2))
+            (Number(balanceClaimed) - (Number(balanceClaimed*0.05))).toFixed(2)
           } dollars in BTCA are now available in your wallet`
         );
         if (address) {

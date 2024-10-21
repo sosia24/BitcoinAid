@@ -269,7 +269,7 @@ export default function Header() {
   }, [address]);
 
   return (
-    <header className="bg-[#201f1b] border-b-4 border-[#eda921] p-1 h-[70px] flex justify-center">
+    <header className="bg-[#201f1b] border-b-4 border-[#eda921] p-1 h-[70px] flex flex-col justify-center">
       <div className="container sm:max-w-[90%] m-auto flex items-center max-w-[98%]">
         <a className="flex flex-row w-[50%] items-center cursor-pointer" href="/">
         <Image src="/images/LogoBTCA-PNG.png" alt="Logo Btca" width={70} height={70} className="max-w-[60px] max-h-[60px]" />
@@ -291,6 +291,7 @@ export default function Header() {
             </>
           )}
         </div>
+
 
         {accountMenu ? (
           <>

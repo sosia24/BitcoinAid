@@ -562,3 +562,22 @@ export async function getAllowanceUsdt(address:string){
   return (Number(result))/10**6;
 }
 
+export async function totalBurned(){
+  const provider = new ethers.JsonRpcProvider(RPC_POLYGON);
+
+  const get = new ethers.Contract(DONATION_ADDRESS ? DONATION_ADDRESS : "", donationAbi, provider);
+
+  const result = await get.totalBurned();
+
+  return result;
+}
+
+export async function totalBtcaNft(){
+  const provider = new ethers.JsonRpcProvider(RPC_POLYGON);
+
+  const get = new ethers.Contract(DONATION_ADDRESS ? DONATION_ADDRESS : "", donationAbi, provider);
+
+  const result = await get.totalDistributedForUsers();
+
+  return result;
+}

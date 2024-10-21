@@ -176,9 +176,7 @@ const SimpleSlider = () => {
   async function approveToMintNft(value:number){
     try{
       setLoading(true);
-      console.log("value : %d", value);
       const priceInWei = Number(value) * 1000000;
-      console.log("price in wei: %d", priceInWei);
       const result = await approveMint(priceInWei);
       if (result) {
         setLoading(false);
@@ -191,7 +189,6 @@ const SimpleSlider = () => {
   }
 
   const doApproveMint = () => {
-    console.log("chamou a funcao");
     const priceInWei: number = Number(nftCurrentPrice)*100000;
     if (address) {
       approveToMintNft(priceInWei);
@@ -379,7 +376,6 @@ function getPaymentAmountForQueue(queueIndex: number):number {
 }
 
 async function getBalanceFree(){
-  console.log("Chamou");
     const result = await balanceFree();
     if(result){
       setBalance(Number(result));
@@ -513,7 +509,6 @@ async function getPriceToken() {
 
   async function verifyBatchToPaid(){
     for(let i = 0; i < currentBatch; i++){
-      console.log("Nft to Paid: ", totalNftToPaid);
       if(newQueue[i][0] && totalNftToPaid >= 4){
         doClaimQueue(
           Number(newQueue[i][0].index),
