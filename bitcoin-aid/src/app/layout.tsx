@@ -5,6 +5,7 @@ import "./globals.css";
 import Header from "../componentes/header";
 import Footer from "@/componentes/footer";
 import Burned from "@/componentes/burned"
+import Trophy from "@/componentes/trophy";
 import { WalletProvider } from "@/services/walletContext";
 import Image from "next/image";
 import { Analytics } from "@vercel/analytics/react";
@@ -44,6 +45,7 @@ export default function RootLayout({
           <Analytics />
           <main className={franklin.className}>{children}</main>
           
+          <Trophy />
           <Links/>
           <Footer/>
         </WalletProvider>

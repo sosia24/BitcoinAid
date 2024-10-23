@@ -27,7 +27,7 @@ useEffect(() => {
 
 
 return(
-    <div className=" w-full  glossy flex flex-col mt-[10px]">
+    <div className=" w-full border-b-2 border-b-[#3f3f3f] flex flex-col mt-[10px]">
     <div className="flex flex-col md:flex-row w-[96%] md:w-[70%] m-auto justify-between p-4">
       <p className="flex flex-row items-center mb-[10px] md:mb-0 md:text-[20px] text-[14px]">Total Burned: {burned.toFixed(2)} BTCA <FaFire className="text-orange-400"></FaFire></p>
       <p className="flex flex-row items-center right-0 mb-[10px] md:mb-0 md:text-[20px] text-[14px]">Total Distributed to Nft's: {toNft.toFixed(2)} BTCA <FaFire className="text-orange-400"></FaFire></p>

@@ -292,7 +292,9 @@ const SimpleSlider = () => {
     const sliderRef = slidersRefs.current[index];
     if (sliderRef) {
       const totalSlides = React.Children.count(sliderRef.props.children);
-      sliderRef.slickGoTo(totalSlides - 1);
+      if(totalSlides > 4){
+        sliderRef.slickGoTo(totalSlides - 1);
+      }
     }
   };
 
