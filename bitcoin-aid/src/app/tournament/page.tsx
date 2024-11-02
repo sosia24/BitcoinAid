@@ -46,71 +46,36 @@ export default function Tournament() {
 
     // Função para formatar a data de hoje no formato YYYY-MM-DD
     useEffect(() => { 
-        // Função para formatar a data  de hoje no formato YYYY-MM-DD
-        const formatDate = (date: Date) => {
-          const year = date.getUTCFullYear();
-          const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // Mês começa em 0
-          const day = String(date.getUTCDate()).padStart(2, '0');
-          return `${year}-${month}-${day}`;
-        };
+      // Função para formatar a data de hoje no formato YYYY-MM-DD
+      const formatDate = (date: Date) => {
+        const year = date.getUTCFullYear();
+        const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // Mês começa em 0
+        const day = String(date.getUTCDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+      };
     
-        // Definindo a data de hoje no formato correto e obtendo dados da API
-        const today = new Date();
-        setTodayDate(formatDate(today));
-        
-        // Função para buscar os dados da API
-       /* const fetchDataToken = async (max = 3, delay = 1000) => {
-          let attemp = 1;
-          while(attemp < max){
+      // Definindo a data de hoje no formato correto
+      const today = new Date();
+      const formattedDate = formatDate(today);
+      setTodayDate(formattedDate);
+    
+      // Função para buscar os dados da API
+      const fetchDataDonation = async (max = 3, delay = 1000) => {
+        let attempt = 1;
+        while (attempt <= max) {
           try {
-            const dataDay = todayDate;
-            const urlDay = `http://67.217.228.116:3000/api/leaderboard_token?data=${dataDay}`;
-        
-            const dataMonthly = '2024-10-01';
-            const urlMonthly = `http://67.217.228.116:3000/api/leaderboard_token_monthly?data=${dataMonthly}`;
-        
-            // Faz a requisição e aguarda a resposta
-            const resDay = await fetch(urlDay);
-            const resMonthly = await fetch(urlMonthly);
-        
-            // Verifica se a resposta é bem-sucedida
-            if (!resDay.ok) {
-              throw new Error(`HTTP error! status: ${resDay.status}`);
-            }
-            if (!resMonthly.ok) {
-              throw new Error(`HTTP error! status: ${resMonthly.status}`);
-            }
-        
-            // Processa o resultado JSON
-            const resultDay = await resDay.json();
-            const resultMonthly = await resMonthly.json();
-            setDataTokenDaily(resultDay);
-            setDataTokenMonthly(resultMonthly); // Atualiza o estado com os dados recebidos
-          } catch (error) {
-            console.error('Erro ao buscar dados:', error);
-          }
-          attemp++;
-
-          await new Promise(resolve => setTimeout(resolve, delay));
-        }
-        };*/
-
-
-        const fetchDataDonation = async (max = 3, delay = 1000) => {
-          let attemp = 1;
-          while(attemp < max){
-          try {
-            const dataDay = todayDate;
+            const dataDay = formattedDate; // Use formattedDate
             const urlDay = `http://67.217.228.116:3000/api/leaderboard_donation?data=${dataDay}`;
-        
+    
             const currentMonthUTC = String(new Date().getUTCMonth() + 1).padStart(2, '0');
-            const dataMonthly = '2024-11-01';
+            const dataMonthly = '2024-11-01'; // Considera que a data é fixa aqui
             const urlMonthly = `http://67.217.228.116:3000/api/leaderboard_donation_monthly?data=${dataMonthly}`;
-        
+            console.log(urlMonthly);
+    
             // Faz a requisição e aguarda a resposta
             const resDay = await fetch(urlDay);
             const resMonthly = await fetch(urlMonthly);
-        
+    
             // Verifica se a resposta é bem-sucedida
             if (!resDay.ok) {
               throw new Error(`HTTP error! status: ${resDay.status}`);
@@ -118,26 +83,28 @@ export default function Tournament() {
             if (!resMonthly.ok) {
               throw new Error(`HTTP error! status: ${resMonthly.status}`);
             }
-        
+    
             // Processa o resultado JSON
             const resultDay = await resDay.json();
             const resultMonthly = await resMonthly.json();
             setDataDonationDaily(resultDay);
             setDataDonationMonthly(resultMonthly); // Atualiza o estado com os dados recebidos
+            break; // Se a requisição for bem-sucedida, sai do loop
           } catch (error) {
             console.error('Erro ao buscar dados:', error);
+            if (attempt === max) {
+              // Se for a última tentativa, você pode adicionar alguma lógica aqui, como um alerta ao usuário.
+            }
           }
-          attemp++;
-
+          attempt++;
           await new Promise(resolve => setTimeout(resolve, delay));
         }
-        };
-        
-        // Chama a função para buscar os dados uma vez ao carregar o componente
-      //fetchDataToken();
+      };
+    
+      // Chama a função para buscar os dados uma vez ao carregar o componente
       fetchDataDonation();
-
-  });
+    }, []); // Adicione dependências aqui, se necessário
+    
 
 
     useEffect(() => {
