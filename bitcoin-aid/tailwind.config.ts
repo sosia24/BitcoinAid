@@ -19,6 +19,7 @@ const config: Config = {
         Agency: ['Agency', 'sans-serif'],
       },
       animation:{
+        'marquee': 'marquee 20s linear infinite',
         'slide-down': 'slideDown 0.3s ease-out forwards',
       },
       keyframes:{
@@ -30,9 +31,15 @@ const config: Config = {
             opacity: '1',
           },
         },
+        marquee: {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(-100%)' },
+        }
       },
     },
   },
+  
   plugins: [],
+  
 };
 export default config;

@@ -243,17 +243,17 @@ export default function Tournament() {
             <div className="w-10 h-10 border-t-4 border-b-4 border-[#d79920] rounded-full animate-spin"></div>
           </div>
           )}
-        <div className="container min-h-screen max-w-[98%] lg:max-w-[98%] m-auto flex flex-wrap items-center p-[20px] lg:p-[60px]">
+        <div className="container min-h-screen sm:max-w-[98%] max-w-[100%] lg:max-w-[98%] m-auto flex flex-wrap items-center p-[20px] lg:p-[60px]">
         <div className="w-[100%]">
             <p className="text-center mt-[30px] text-[26px]">24h Tournaments</p>
             <div className="md:w-[80%] w-[100%] m-auto items-center justify-center flex md:flex-row flex-col">
 
 
-                <div className="mt-[20px] mr-[15px] podio md:w-[40%] w-[90%] md:text-[18px] text-[14px] glossy p-2 rounded-lg shadow-2xl border-2 border-green-500">
+                <div className="mt-[20px] sm:mr-[15px] podio md:w-[60%] lg:w-[40%] w-[100%] md:text-[18px] text-[14px] glossy sm:p-2 rounded-lg shadow-2xl border-2 border-green-500">
                     <div className="w-[100%] flex flex-row text-[16px]">
-                        <p className="md:text-[20px] text-[16px] p-[6px]">Donation Daily Tournament</p>
+                        <p className="md:text-[20px] sm:text-[16px] text-[14px] p-[6px]">Donation Daily Tournament</p>
                     </div>
-                    <div className="w-[100%] p-2">
+                    <div className="w-[100%] sm:p-2">
                         <div className="flex flex-col items-center mt-[2px]">
                           {dataDonationDaily.length === 0?(
                             <p className="text-red-500">No Data</p>
@@ -264,17 +264,17 @@ export default function Tournament() {
                                 <>
                                 {item.score > 0 && item.rank <= 10?(
                                   <div className="w-[100%] flex flex-row p-2">
-                                  <p className="" key={index}>{item.rank}° {item.user_address.slice(0,4)}...{item.user_address.slice(-6)}</p>
+                                  <p className="md:text-[20px] sm:text-[16px] text-[12px]" key={index}>{item.rank}° {item.user_address.slice(0,4)}...{item.user_address.slice(-6)}</p>
                                   {item.rank == 1?(
-                                    <PiMedalFill className="mx-2 text-yellow-400" />
+                                    <PiMedalFill className="sm:mx-2 text-yellow-400 sm:text-[16px] text-[12px]" />
                                   ):item.rank == 2?(
-                                    <PiMedalFill className="mx-2 text-gray-400" />
+                                    <PiMedalFill className="sm:mx-2 text-gray-400 sm:text-[16px] text-[12px]" />
                                   ):item.rank == 3?(
-                                    <PiMedalFill className="mx-2 text-[#804a00]" />
+                                    <PiMedalFill className="sm:mx-2 text-[#804a00] sm:text-[16px] text-[12px]" />
                                   ):(
                                     ""
                                   )}
-                                  <p className="ml-auto">{item.score} $</p>
+                                  <p className="ml-auto md:text-[20px] sm:text-[16px] text-[12px]">{item.score} $</p>
                                   </div>
                                 ):(
                                   ""
@@ -283,8 +283,8 @@ export default function Tournament() {
                                 </>
                            ))}
                         </div>
-                        <p  className="text-[18px] p-[4px] r-0">Finish in {formatTime(timeDayRemaining)}</p>
-                        <p className="text-[18px] p-[4px] r-0 text-green-700">Actually Rewards: {donationRewards30 ? `${donationRewards30} $` : "Loading..."}</p>
+                        <p  className="sm:text-[18px] text-[14px] p-[4px] r-0">Finish in {formatTime(timeDayRemaining)}</p>
+                        <p className="sm:text-[18px] text-[14px] p-[4px] r-0 text-green-700">Actually Rewards: {donationRewards30 ? `${donationRewards30} $` : "Loading..."}</p>
                     </div>
                 </div>
             </div>
@@ -293,14 +293,14 @@ export default function Tournament() {
 
         <div className="w-[100%]">
         <p className="text-center mt-[30px] text-[26px]">30-Days Tournaments</p>
-        <div className="w-[98%] m-auto flex flex-col">
+        <div className="w-[100%] m-auto flex flex-col">
 
-            <div className="mt-[20px] mb-[50px] m-auto podio lg:w-[80%] w-[100%] lg:text-[20px] text-[16px] glossy p-2 rounded-lg shadow-2xl border-2 border-green-500">
+            <div className="mt-[20px] mb-[50px] m-auto podio lg:w-[80%] w-[100%] lg:text-[20px] text-[16px] glossy sm:p-2 rounded-lg shadow-2xl border-2 border-green-500">
                 <div className="w-[100%] flex flex-row text-[16px]">
                     <p className="text-[20px] p-[6px]">Donation Monthly Tournament</p>
                 </div>
-                <div className="w-[100%] p-2">
-                    <div className="flex flex-col items-center mt-[2px]">
+                <div className="w-[100%] sm:p-2">
+                    <div className="flex flex-col items-center mt-[2px] ">
                     {dataDonationMonthly.length === 0?(
                             <p className="text-red-500">No Data</p>
                           ):(
@@ -310,17 +310,17 @@ export default function Tournament() {
                                 <>
                                 {item.score > 0 && item.rank <= 10?(
                                   <div className="w-[100%] flex flex-row p-2">
-                                  <p className="" key={index}>{item.rank}° {item.user_address.slice(0,4)}...{item.user_address.slice(-6)}</p>
+                                  <p className="md:text-[20px] sm:text-[16px] text-[12px]" key={index}>{item.rank}° {item.user_address.slice(0,4)}...{item.user_address.slice(-6)}</p>
                                   {item.rank == 1?(
-                                    <PiMedalFill className="mx-2 text-yellow-400" />
+                                    <PiMedalFill className="sm:mx-2 text-yellow-400 sm:text-[16px] text-[12px]" />
                                   ):item.rank == 2?(
-                                    <PiMedalFill className="mx-2 text-gray-400" />
+                                    <PiMedalFill className="sm:mx-2 text-gray-400 sm:text-[16px] text-[12px]" />
                                   ):item.rank == 3?(
-                                    <PiMedalFill className="mx-2 text-[#804a00]" />
+                                    <PiMedalFill className="sm:mx-2 text-[#804a00] sm:text-[16px] text-[12px]" />
                                   ):(
                                     ""
                                   )}
-                                  <p className="ml-auto">{item.score} $</p>
+                                  <p className="ml-auto md:text-[20px] sm:text-[16px] text-[12px]">{item.score} $</p>
                                   </div>
                                 ):(
                                   ""
@@ -329,8 +329,8 @@ export default function Tournament() {
                                 </>
                            ))}
                     </div>
-                    <p  className="text-[18px] p-[6px] r-0">Finish in {formatTimeMonthly(timeMonthlyRemaining)}</p>
-                    <p className="text-[18px] p-[4px] r-0 text-green-700">Actually Rewards: {donationRewards30 ? `${donationRewards30} $` : "Loading..."}</p>
+                    <p  className="sm:text-[18px] text-[14px] p-[6px] r-0">Finish in {formatTimeMonthly(timeMonthlyRemaining)}</p>
+                    <p className="sm:text-[18px] text-[14px] p-[4px] r-0 text-green-700">Actually Rewards: {donationRewards30 ? `${donationRewards30} $` : "Loading..."}</p>
                 </div>
             </div>
 

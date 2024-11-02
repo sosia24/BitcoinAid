@@ -574,6 +574,16 @@ export async function totalBurned(){
   return result;
 }
 
+export async function pool2(){
+  const provider = new ethers.JsonRpcProvider(RPC_POLYGON);
+
+  const get = new ethers.Contract(DONATION_ADDRESS ? DONATION_ADDRESS : "", donationAbi, provider);
+
+  const result = await get.nextPoolFilling();
+
+  return result;
+}
+
 export async function totalBtcaNft(){
   const provider = new ethers.JsonRpcProvider(RPC_POLYGON);
 
