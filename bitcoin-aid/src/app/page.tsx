@@ -426,12 +426,12 @@ export default function Home() {
         </p>
         <div className="mt-[50px] w-full lg:max-w-[55%] max-w-[90%] border-l-2 border-[#282722] lg:p-8 p-4 ">
           {poolBalanceValue ? (
-            <p className="font-semibold text-[25px] lg:text-[40px] w-full m-w-[90%]">
+            <p className="font-semibold sm:text-[25px] text-[18px] lg:text-[40px] w-full m-w-[90%]">
               {Number(ethers.formatEther(poolBalanceValue)).toFixed(2)}
               <span className="text-[#d79920]">BTCA</span>
             </p>
           ) : (
-            <p className="font-semibold text-[25px] lg:text-[40px] w-full">
+            <p className="font-semibold sm:text-[25px] text-[18px] lg:text-[40px] w-full">
               ----- <span className="text-[#d79920]">BTCA</span>
             </p>
           )}
@@ -440,7 +440,7 @@ export default function Home() {
           </p>
         </div>
         <div className="mt-[30px] lg:mt-[50px] w-[100%] md:w-[45%] border-l-2 border-[#282722] p-8 ">
-          <p className="font-semibold text-[25px] lg:text-[40px] w-full ">
+          <p className="font-semibold sm:text-[25px] text-[18px] lg:text-[40px] w-full ">
             ${tokenPrice}
           </p>
           <p className="text-[#d79920] text-[13px] lg:text-[18px] font-semibold">
@@ -501,8 +501,8 @@ export default function Home() {
                 {address ? (
                   balanceValue !== null ? (
                     <>
-                      <p className="md:text-[25px] text-[20px] font-semibold">WALLET BALANCE</p>
-                      <span className="font-semibold text-[22px]">
+                      <p className="md:text-[25px] sm:text-[18px] text-[16px] font-semibold">WALLET BALANCE</p>
+                      <span className="font-semibold sm:text-[22px] text-[18px]">
                         {" "}
                         {Number(ethers.formatEther(balanceValue)).toFixed(
                           2
@@ -512,13 +512,13 @@ export default function Home() {
                     </>
                   ) : (
                     <>
-                      <p className="md:text-[25px] text-[20px]  font-semibold">WALLET BALANCE</p>
+                      <p className="md:text-[25px] text-[18px]  font-semibold">WALLET BALANCE</p>
                       <p className="md:text-[22px] text-[16px]  font-semibold">00.0000 BTCA</p>
                     </>
                   )
                 ) : (
                   <>
-                    <p className="md:text-[25px] text-[20px]  font-semibold">WALLET BALANCE</p>
+                    <p className="md:text-[25px] text-[18px]  font-semibold">WALLET BALANCE</p>
                     <p className="md:text-[22px] text-[16px] font-semibold">---- BTCA</p>
                   </>
                 )}
@@ -530,14 +530,14 @@ export default function Home() {
                 </p>
                 {userBalanceValue !== undefined && userBalanceValue !== null ? (
                   <>
-                    <p className="text-[25px] mt-[10px]">Total Contributed</p>
-                    <span className="font-semibold text-[22px]">
+                    <p className="sm:text-[25px] text-[18px] mt-[10px]">Total Contributed</p>
+                    <span className="font-semibold sm:text-[22px]  text-[18px]">
                       {(Number(userBalanceValue) / 1000000).toFixed(2)} $
                     </span>
                   </>
                 ) : (
                   <>
-                    <p className="text-[22px] mt-[10px]">Total Contributed</p>
+                    <p className="sm:text-[22px] text-[18px] mt-[10px]">Total Contributed</p>
                     <p className="text-[22px] font-semibold">
                       ---- <span className="">BTCA</span>
                     </p>
@@ -606,10 +606,10 @@ export default function Home() {
 
             <div className="flex justify-between flex-col items-center mb-[20px] m-auto w-[100%] sm:w-[95%] h-[350px] bg-[#434139] rounded-3xl">
               <div className="pt-[30px]">
-                <p className="lg:text-[25px] text-[20px] font-semibold">CLAIMABLE REWARDS</p>
+                <p className="lg:text-[25px] sm:text-[20px] text-[14px] font-semibold">CLAIMABLE REWARDS</p>
                 {userBalanceValue !== undefined && userBalanceValue !== null ? (
                   <>
-                    <p className="font-Agency text-center text-[50px] mt-[25px]">
+                    <p className="font-Agency text-center sm:text-[50px] text-[40px] mt-[15px] sm:mt-[25px]">
                       {balanceClaimed.toFixed(2)}
                       <span className="text-[#d79920]">$</span>
                     </p>
@@ -636,7 +636,7 @@ export default function Home() {
                       S
                     </p>
                     <button className="cursor-default rounded-3xl text-[30px] font-Agency w-[80%] border-2 border-gray">
-                      <p className="text-gray text-[24px] md:text-[30px]">
+                      <p className="text-gray sm:text-[24px] text-[18px] md:text-[26px]">
                         CLAIM
                       </p>
                     </button>
@@ -646,7 +646,7 @@ export default function Home() {
                     <p className="text-center mb-[10px]">00D:00H:00M:00S</p>
                     <button
                       onClick={doClaim}
-                      className="rounded-3xl text-[30px] font-Agency w-[80%] border-2 border-[#3a6e01] hover:bg-[#424039]"
+                      className="rounded-3xl sm:text-[26px] text-[18px] font-Agency w-[80%] border-2 border-[#3a6e01] hover:bg-[#424039]"
                     >
                       <p className="text-[#3a6e01]">CLAIM</p>
                     </button>

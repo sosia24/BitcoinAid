@@ -6,6 +6,7 @@ import queueNewAbi from "./QueueNew.abi.json"
 import collectionAbi from "./Collection.abi.json";
 import usdtAbi from "./Usdt.abi.json";
 import oracleAbi from "./Oracle.abi.json";
+import tournamentDonationAbi from "./Tournament_Donation.abi.json"
 const CHAIN_ID = process.env.NEXT_PUBLIC_CHAIN_ID;
 const TOKEN_ADDRESS = process.env.NEXT_PUBLIC_TOKEN_ADDRESS;
 const DONATION_ADDRESS = process.env.NEXT_PUBLIC_DONATION_ADDRESS;
@@ -15,6 +16,7 @@ const COLLECTION_ADDRESS = process.env.NEXT_PUBLIC_COLLECTION_ADDRESS;
 const USDT_ADDRESS = process.env.NEXT_PUBLIC_USDT_ADDRESS;
 const ORACLE_ADDRESS = process.env.NEXT_PUBLIC_ORACLE_ADDRESS;
 const RPC_POLYGON = process.env.NEXT_PUBLIC_RPC_POLYGON;
+const TOURNAMENT_DONATION = process.env.NEXT_PUBLIC_TOURNAMENT_DONATION;
 
 
 import { nftQueue } from "./types";
@@ -580,4 +582,13 @@ export async function totalBtcaNft(){
   const result = await get.totalDistributedForUsers();
 
   return result;
+}
+
+export async function tournamentDonation(){
+  const provider = new ethers.JsonRpcProvider(RPC_POLYGON);
+
+  const get = new ethers.Contract(TOURNAMENT_DONATION ? TOURNAMENT_DONATION : "", tournamentDonationAbi, provider);
+
+  const [token24, token30] = await get.balances();
+  return {token24, token30};
 }

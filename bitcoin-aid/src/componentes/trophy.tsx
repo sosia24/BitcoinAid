@@ -6,7 +6,7 @@ export default function Trophy(){
         <a href="tournament">
         <Image 
         alt="trophy" 
-        src={'/images/TrophyComing.png'} 
+        src={'/images/Trophy.png'} 
         width={100} 
         height={100} 
         className="">
