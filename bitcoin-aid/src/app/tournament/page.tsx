@@ -190,7 +190,7 @@ export default function Tournament() {
             <div className="md:w-[80%] w-[100%] m-auto items-center justify-center flex md:flex-row flex-col">
 
 
-                <div className="mt-[20px] mr-[15px] podio md:w-[40%] w-[70%] md:text-[18px] text-[14px] glossy p-2 rounded-lg shadow-2xl border-2 border-green-500">
+                <div className="mt-[20px] mr-[15px] podio md:w-[40%] w-[90%] md:text-[18px] text-[14px] glossy p-2 rounded-lg shadow-2xl border-2 border-green-500">
                     <div className="w-[100%] flex flex-row text-[16px]">
                         <p className="md:text-[20px] text-[16px] p-[6px]">Donation Daily Tournament</p>
                     </div>
@@ -234,9 +234,9 @@ export default function Tournament() {
 
         <div className="w-[100%]">
         <p className="text-center mt-[30px] text-[26px]">30-Days Tournaments</p>
-        <div className="w-[80%] m-auto flex flex-col">
+        <div className="w-[98%] m-auto flex flex-col">
 
-            <div className="mt-[20px] m-auto podio lg:w-[80%] w-[100%] lg:text-[20px] text-[16px] glossy p-2 rounded-lg shadow-2xl border-2 border-green-500">
+            <div className="mt-[20px] mb-[50px] m-auto podio lg:w-[80%] w-[100%] lg:text-[20px] text-[16px] glossy p-2 rounded-lg shadow-2xl border-2 border-green-500">
                 <div className="w-[100%] flex flex-row text-[16px]">
                     <p className="text-[20px] p-[6px]">Donation Monthly Tournament</p>
                 </div>
