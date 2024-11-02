@@ -6,6 +6,8 @@ import { FaCrown } from "react-icons/fa6";
 import { PiMedalFill } from "react-icons/pi";
 import { tournamentDonation } from "@/services/Web3Services";
 export default function Tournament() {
+
+  
     const [todayDate, setTodayDate] = useState('');
     const [dataDonationDaily, setDataDonationDaily] = useState([]);
     const [dataDonationMonthly, setDataDonationMonthly] = useState([]);
@@ -23,6 +25,7 @@ export default function Tournament() {
 
     const [donationRewards24, setDonationRewards24] = useState(0);
     const [donationRewards30, setDonationRewards30] = useState(0);
+
 
     async function rewardsDonation(){
       try{
@@ -42,8 +45,8 @@ export default function Tournament() {
 
 
     // Função para formatar a data de hoje no formato YYYY-MM-DD
-    useEffect(() => {
-        // Função para formatar a data de hoje no formato YYYY-MM-DD
+    useEffect(() => { 
+        // Função para formatar a data  de hoje no formato YYYY-MM-DD
         const formatDate = (date: Date) => {
           const year = date.getUTCFullYear();
           const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // Mês começa em 0
@@ -233,7 +236,7 @@ export default function Tournament() {
                           ):(
                             null
                           )}
-                            {dataDonationDaily.map((item, index) => (
+                            {dataDonationDaily.map((item:any, index:number) => (
                                 <>
                                 {item.score > 0 && item.rank <= 10?(
                                   <div className="w-[100%] flex flex-row p-2">
@@ -279,7 +282,7 @@ export default function Tournament() {
                           ):(
                             null
                           )}
-                    {dataDonationMonthly.map((item, index) => (
+                    {dataDonationMonthly.map((item:any, index:number) => (
                                 <>
                                 {item.score > 0 && item.rank <= 10?(
                                   <div className="w-[100%] flex flex-row p-2">
