@@ -104,7 +104,7 @@ export default function Tournament() {
             const urlDay = `http://67.217.228.116:3000/api/leaderboard_donation?data=${dataDay}`;
         
             const currentMonthUTC = String(new Date().getUTCMonth() + 1).padStart(2, '0');
-            const dataMonthly = '2024-'+currentMonthUTC+'-01';
+            const dataMonthly = '2024-11-01';
             const urlMonthly = `http://67.217.228.116:3000/api/leaderboard_donation_monthly?data=${dataMonthly}`;
         
             // Faz a requisição e aguarda a resposta
@@ -236,7 +236,7 @@ export default function Tournament() {
                           ):(
                             null
                           )}
-                            {dataDonationDaily.map((item:any, index:number) => (
+                            {dataDonationDaily.map((item:any, index) => (
                                 <>
                                 {item.score > 0 && item.rank <= 10?(
                                   <div className="w-[100%] flex flex-row p-2">
