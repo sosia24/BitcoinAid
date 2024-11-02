@@ -3,11 +3,22 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import confetti from "canvas-confetti";
 import { FaCrown } from "react-icons/fa6";
+import Error from "@/componentes/erro";
+import Alert from "@/componentes/alert";
 import { PiMedalFill } from "react-icons/pi";
-import { tournamentDonation } from "@/services/Web3Services";
+import { tournamentDonation,
+          tournamentDonationRewards,
+          claimDonationRewards,
+ } from "@/services/Web3Services";
+import { useWallet } from "@/services/walletContext";
+
 export default function Tournament() {
 
-  
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
+    const [alert, setAlert] = useState("");
+
+    const { address, setAddress } = useWallet();
     const [todayDate, setTodayDate] = useState('');
     const [dataDonationDaily, setDataDonationDaily] = useState([]);
     const [dataDonationMonthly, setDataDonationMonthly] = useState([]);
@@ -26,14 +37,47 @@ export default function Tournament() {
     const [donationRewards24, setDonationRewards24] = useState(0);
     const [donationRewards30, setDonationRewards30] = useState(0);
 
+    const[donationWithdrawals, setDonationWithdrawals] = useState(0);
+    const[claimDonationRewardsOpen, setClaimDonationRewardsOpen] = useState(false);
+
+
+    async function collectDonationRewards(){
+      setLoading(true);
+      try{
+        if(address){
+          await claimDonationRewards();
+          setLoading(false);
+        }
+      }catch(err){
+        setLoading(false)
+        setError("Unable to collect your reward ${err.message || err}");
+      }
+      setLoading(false);
+    }
+
+    async function handleClaimDonationsOpen(){
+      setClaimDonationRewardsOpen(prevValue => !prevValue);
+    }
 
     async function rewardsDonation(){
       try{
       const {token24, token30} = await tournamentDonation();
       setDonationRewards24(Number(token24)/1000000)
       setDonationRewards30(Number(token30)/1000000)
-      console.log(token24)
-      console.log(token30)
+      }catch(err){
+        console.log("Erro")
+      }
+    }
+
+    async function withdrawalsDonation(){
+      try{
+        if(address){
+        const {amount, expired} = await tournamentDonationRewards(address);
+        setDonationWithdrawals(Number(amount)/1000000);
+        if(amount > 0){
+          setClaimDonationRewardsOpen(true);
+        }
+      }
       }catch(err){
         console.log("Erro")
       }
@@ -41,8 +85,16 @@ export default function Tournament() {
 
     useEffect(() =>{
       rewardsDonation();
+      withdrawalsDonation();
     })
 
+
+    async function clearError(){
+      setError('');
+    }
+    async function clearAlert(){
+      setAlert('');
+    }
 
     useEffect(() => { 
       const formatDate = (date: Date) => {
@@ -76,10 +128,10 @@ export default function Tournament() {
     
             // Verifica se a resposta é bem-sucedida
             if (!resDay.ok) {
-              throw new Error(`HTTP error! status: ${resDay.status}`);
+              console.log("HTTP error! status: ${resDay.status}");
             }
             if (!resMonthly.ok) {
-              throw new Error(`HTTP error! status: ${resMonthly.status}`);
+              console.log("HTTP error! status: ${resMonthly.status}");
             }
     
             // Processa o resultado JSON
@@ -184,6 +236,13 @@ export default function Tournament() {
 
     return (
         <>
+        {error && <Error msg={error} onClose={clearError} />}
+        {alert && <Alert msg={alert} onClose={clearAlert} />}
+        {loading && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="w-10 h-10 border-t-4 border-b-4 border-[#d79920] rounded-full animate-spin"></div>
+          </div>
+          )}
         <div className="container min-h-screen max-w-[98%] lg:max-w-[98%] m-auto flex flex-wrap items-center p-[20px] lg:p-[60px]">
         <div className="w-[100%]">
             <p className="text-center mt-[30px] text-[26px]">24h Tournaments</p>
@@ -278,6 +337,45 @@ export default function Tournament() {
             </div>
         </div>
         </div>
+
+        {claimDonationRewardsOpen?(
+          <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div
+            className="fixed inset-0 bg-black opacity-90"
+            onClick={handleClaimDonationsOpen}
+          ></div>
+          <div className="relative bg-[#201f1b] border-2 border-[#eda921] p-6 rounded-lg shadow-lg w-[90%] max-w-lg z-10 glossy">
+            <button
+              className="absolute top-4 right-4 text-red-600"
+              onClick={handleClaimDonationsOpen}
+            >
+              <p className="font-bold">X</p>
+            </button>
+            <div className="w-[100%] items-center justify-center text-center">
+              <p className="font-semibold text-[26px] items-center justify-center text-green-500">Be happy!</p>
+              <p className="text-[22px] text-center"> The community thanks you for your collaboration </p>
+              <Image
+              src="/images/Trophy.png"
+              alt="NFT"
+              layout="responsive"
+              width={300}
+              height={300}
+              className="mx-auto max-w-[60%] max-h-[55%]"
+              />
+      
+              <p className="mt-[20px] text-[22px] font-semibold">You Won {String(donationWithdrawals)} $ in the Donation Tournament</p>
+            </div>
+            <button
+                onClick={collectDonationRewards}
+                className="flex m-auto items-center justify-center glossy_claim hover:bg-[#346301] mx-auto p-[10px] w-[200px] rounded-full mt-[10px] glossy_cta"
+              >
+                Claim Now
+              </button>
+            </div>
+            </div>
+        ):(
+          ""
+        )}
     </>
     );
 }

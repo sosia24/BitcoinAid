@@ -592,3 +592,27 @@ export async function tournamentDonation(){
   const [token24, token30] = await get.balances();
   return {token24, token30};
 }
+
+export async function tournamentDonationRewards(address:string){
+  const provider = await getProvider();
+  const signer = await provider.getSigner();
+
+  const get = new ethers.Contract(TOURNAMENT_DONATION ? TOURNAMENT_DONATION : "", tournamentDonationAbi, signer);
+
+  const {amount, expired} = await get.withdrawals(address);
+  return {amount, expired};
+}
+
+export async function claimDonationRewards(){
+  const provider = await getProvider();
+  const signer = await provider.getSigner();
+
+  const get = new ethers.Contract(TOURNAMENT_DONATION ? TOURNAMENT_DONATION : "", tournamentDonationAbi, signer);
+
+  try{
+    const tx = await get.withdraw();
+    await tx.wait()
+  }catch(err){
+    console.error("Error withdrawing donation rewards:", err);
+  }
+}
