@@ -609,7 +609,7 @@ export async function tournamentDonationRewards(address:string){
 
   const get = new ethers.Contract(TOURNAMENT_DONATION ? TOURNAMENT_DONATION : "", tournamentDonationAbi, signer);
 
-  const {amount, expired} = await get.withdrawals(address);
+  const [amount, expired] = await get.withdrawals(address);
   return {amount, expired};
 }
 

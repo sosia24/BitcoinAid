@@ -34,7 +34,7 @@ useEffect(() => {
 
 
 return (
-  <div className="w-full border-b-2 border-b-[#3f3f3f] flex flex-col mt-[10px]">
+  <div className="w-full border-b-2 border-b-[#3f3f3f] flex flex-col mt-[10px] z-10">
     <div className="overflow-hidden">
       <div className="py-2 animate-marquee whitespace-nowrap" aria-live="polite">
         <span className="mx-4 text-[16px] text-green-700">Total Burned: {burned.toFixed(2)}</span>

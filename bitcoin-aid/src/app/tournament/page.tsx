@@ -264,7 +264,11 @@ export default function Tournament() {
                                 <>
                                 {item.score > 0 && item.rank <= 10?(
                                   <div className="w-[100%] flex flex-row p-2">
-                                  <p className="md:text-[20px] sm:text-[16px] text-[12px]" key={index}>{item.rank}° {item.user_address.slice(0,4)}...{item.user_address.slice(-6)}</p>
+                                  {(item.user_address).toLowerCase() == address?(
+                                    <p className="md:text-[20px] sm:text-[16px] text-[12px] text-blue-600" key={index}>{item.rank}° {item.user_address.slice(0,4)}...{item.user_address.slice(-6)}</p>
+                                  ):(
+                                    <p className="md:text-[20px] sm:text-[16px] text-[12px]" key={index}>{item.rank}° {item.user_address.slice(0,4)}...{item.user_address.slice(-6)}</p>
+                                  )}
                                   {item.rank == 1?(
                                     <PiMedalFill className="sm:mx-2 text-yellow-400 sm:text-[16px] text-[12px]" />
                                   ):item.rank == 2?(
@@ -284,7 +288,7 @@ export default function Tournament() {
                            ))}
                         </div>
                         <p  className="sm:text-[18px] text-[14px] p-[4px] r-0">Finish in {formatTime(timeDayRemaining)}</p>
-                        <p className="sm:text-[18px] text-[14px] p-[4px] r-0 text-green-700">Actually Rewards: {donationRewards30 ? `${donationRewards30} $` : "Loading..."}</p>
+                        <p className="sm:text-[18px] text-[14px] p-[4px] r-0 text-green-700">Actually Rewards: {donationRewards24 ? `${donationRewards24} $` : "Loading..."}</p>
                     </div>
                 </div>
             </div>
