@@ -176,7 +176,7 @@ export default function Dashboard() {
       - Your NFTs out of the queue -
     </p>
     <Image
-      src="/images/NFTSATOSHI.png"
+      src="/images/satoshiGif.gif"
       alt="NFT"
       layout="responsive"
       width={300}
