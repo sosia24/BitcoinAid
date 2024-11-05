@@ -539,13 +539,10 @@ async function getPriceToken() {
         <div className=" mx-auto lg:w-[35%] w-[90%] bg-[#26251f35] rounded-3xl mb-[10px] flex flex-col py-[30px] shadow-lg glossy">
           <div className="glossy-content flex items-center justify-center flex-col">
           <p className=" mx-auto text-[30px] mb-[8px]">{currentBatch ? `Buy NFT - Batch #${currentBatch}` : 'Loading...'}</p>
-          <Image
-            src="/images/NFTSATOSHI.png"
-            alt="NFT"
-            width={1000}
-            height={1000}
-            className="mx-auto max-w-[60%] max-h-[55%]"
-          ></Image>
+          <video autoPlay loop muted playsInline className="mx-auto max-w-[60%] max-h-[55%]">
+          <source src="images/satoshigif.mp4" type="video/mp4"/>
+          Seu navegador não suporta o vídeo.
+          </video>
           <p>{minted !== undefined? `${minted}/100` : "Loading..."}</p>
           <div className="mt-[15px] w-[100%] flex flex-row items-center justify-center">
           <p className=" text-[20px] font-semibold">{nftCurrentPrice ? `${nftCurrentPrice}$` : "Loading..."} </p>
