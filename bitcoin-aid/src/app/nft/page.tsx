@@ -541,7 +541,7 @@ async function getPriceToken() {
       )}
 
       <div className=" w-full sm:max-w-[90%] max-w-[98%] m-auto sm:p-4">
-        <p className="mt-[40px] mb-[40px] leading-tight font-Agency text-[50px] sm:text-[80px] font-normal w-full">
+        <p className="mt-[90px] mb-[40px] leading-tight font-Agency text-[50px] sm:text-[80px] font-normal w-full">
           Bitcoin AiD Protocol - NFT Payment Queue
         </p>
         <div className=" mx-auto lg:w-[35%] w-[90%] bg-[#26251f35] rounded-3xl mb-[10px] flex flex-col py-[30px] shadow-lg glossy">

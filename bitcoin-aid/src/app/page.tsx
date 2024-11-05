@@ -421,7 +421,7 @@ export default function Home() {
       )}
 
       <div className="container min-h-screen max-w-[98%] lg:max-w-[90%] m-auto flex flex-wrap items-center p-[20px] lg:p-[60px]">
-        <p className="leading-tight font-Agency text-[70px] sm:text-[90px] font-normal w-full">
+        <p className="leading-tight font-Agency text-[70px] sm:text-[90px] font-normal w-full mt-[50px]">
           Bitcoin AiD Protocol
         </p>
         <div className="mt-[50px] w-full lg:max-w-[55%] max-w-[90%] border-l-2 border-[#282722] lg:p-8 p-4 ">
