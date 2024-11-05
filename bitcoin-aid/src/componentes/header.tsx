@@ -295,8 +295,8 @@ export default function Header() {
 
         {accountMenu ? (
           <>
-          <div ref={menuRef} className="z-999 right-[20px] items-center justify-center  top-[40px] md:top-[70px] absolute w-[250px] bg-[#201f1b] shadow-lg shadow-black">
-            <div className="w-[95%] h-[95%] border-2 border-[#eda921] m-auto mt-[8px] flex flex-col justify-between ">
+          <div ref={menuRef} className="right-[20px] items-center justify-center top-[40px] md:top-[70px] absolute z-50 w-[250px] bg-[#201f1b] shadow-lg shadow-black">
+            <div className="w-[95%] h-[95%] border-2 border-[#eda921] m-auto mt-[8px] flex flex-col justify-between">
               <div className="flex flex-row border-b-2 border-white items-center justify-center">
                 <p className="flex items-center justify-center p-[8px]">{`${address?.slice(0,6)}...${address?.slice(-4)}`}</p>
                 <button onClick={() => copyToClipboard(address?address : "")} className="copy-button">

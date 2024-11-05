@@ -521,6 +521,14 @@ async function getPriceToken() {
     }
     setAlert("There is not enough balance to pay for 4 NFTs");
   }
+  const videoRef = useRef<HTMLVideoElement>(null)
+
+    useEffect(() => {
+      if(videoRef.current){
+        videoRef.current.load();
+      }
+    }, [])
+
 
   return (
     <>
@@ -539,7 +547,7 @@ async function getPriceToken() {
         <div className=" mx-auto lg:w-[35%] w-[90%] bg-[#26251f35] rounded-3xl mb-[10px] flex flex-col py-[30px] shadow-lg glossy">
           <div className="glossy-content flex items-center justify-center flex-col">
           <p className=" mx-auto text-[30px] mb-[8px]">{currentBatch ? `Buy NFT - Batch #${currentBatch}` : 'Loading...'}</p>
-          <video autoPlay loop muted playsInline className="mx-auto max-w-[60%] max-h-[55%]">
+          <video ref={videoRef} autoPlay loop muted playsInline className="mx-auto max-w-[60%] max-h-[55%]">
           <source src="images/satoshigif.mp4" type="video/mp4"/>
           Seu navegador não suporta o vídeo.
           </video>

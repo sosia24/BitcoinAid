@@ -34,16 +34,16 @@ useEffect(() => {
 
 
 return (
-  <div className="w-full border-b-2 border-b-[#3f3f3f] flex flex-col mt-[10px] z-10">
+  <div className="w-full border-b-2 border-b-[#3f3f3f] flex flex-col mt-[10px] absolute z-10">
     <div className="overflow-hidden">
       <div className="py-2 animate-marquee whitespace-nowrap" aria-live="polite">
-        <span className="mx-4 text-[16px] text-green-700">Total Burned: {burned.toFixed(2)}</span>
+        <span className="mx-4 text-[16px] text-green-700">Total Burned: {burned.toFixed(2)} BTCA</span>
         <span className="mx-4 text-[16px] text-[#d79920]">Total Distributed to Nfts: {toNft.toFixed(2)} BTCA</span>
         <span className="mx-4 text-[16px] text-green-700">Pool 2: {toPool2.toFixed(2)} BTCA</span>
-        <span className="mx-4 text-[16px] text-[#d79920]">Total Burned: {burned.toFixed(2)}</span>
+        <span className="mx-4 text-[16px] text-[#d79920]">Total Burned: {burned.toFixed(2)} BTCA</span>
         <span className="mx-4 text-[16px] text-green-700">Total Distributed to Nfts: {toNft.toFixed(2)} BTCA</span>
         <span className="mx-4 text-[16px] text-[#d79920]">Pool 2: {toPool2.toFixed(2)} BTCA</span>
-        <span className="mx-4 text-[16px] text-green-700">Total Burned: {burned.toFixed(2)}</span>
+        <span className="mx-4 text-[16px] text-green-700">Total Burned: {burned.toFixed(2)} BTCA</span>
         <span className="mx-4 text-[16px] text-[#d79920]">Total Distributed to Nfts: {toNft.toFixed(2)} BTCA</span>
         <span className="mx-4 text-[16px] text-green-700">Pool 2: {toPool2.toFixed(2)} BTCA</span>
       </div>
