@@ -33,6 +33,8 @@ export default function Dashboard() {
   const [alert, setAlert] = useState("");
   const [temNft, setTemNft] = useState<boolean>(false);
   const [claimOpen, setClaimOpen] = useState<boolean>(false); 
+  const [imageError, setImageError] = useState(false);
+
 
 
 
@@ -176,7 +178,7 @@ export default function Dashboard() {
       - Your NFTs out of the queue -
     </p>
     <Image
-      src="/images/satoshiGif.gif"
+      src={imageError ? "/images/NFTSATOSHI.png" : "/images/satoshiGif.gif"}
       alt="NFT"
       layout="responsive"
       width={300}

@@ -58,6 +58,8 @@ const SimpleSlider = () => {
   const [lastBatchWithNft, setLastBatchWithNft] = useState<number>(0);
   const [allowanceUsdt, setAllowanceUsdt] = useState<number>(0);
   const [totalNftToPaid, setTotalNftToPaid] = useState<number>(0)
+  const [imageError, setImageError] = useState(false);
+
 
 
   async function getLastBatch(){
@@ -548,11 +550,12 @@ async function getPriceToken() {
           <div className="glossy-content flex items-center justify-center flex-col">
           <p className=" mx-auto text-[30px] mb-[8px]">{currentBatch ? `Buy NFT - Batch #${currentBatch}` : 'Loading...'}</p>
           <Image
-            src="/images/satoshiGif.gif"
+            src={imageError ? "/images/NFTSATOSHI.png" : "/images/satoshiGif.gif"}
             alt="NFT"
             width={1000}
             height={1000}
             className="mx-auto max-w-[60%] max-h-[55%]"
+            onError={() => setImageError(true)}
           ></Image>
           <p>{minted !== undefined? `${minted}/100` : "Loading..."}</p>
           <div className="mt-[15px] w-[100%] flex flex-row items-center justify-center">
