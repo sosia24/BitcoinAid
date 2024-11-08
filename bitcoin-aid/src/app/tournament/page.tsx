@@ -244,6 +244,29 @@ export default function Tournament() {
           </div>
           )}
         <div className="container min-h-screen sm:max-w-[98%] max-w-[100%] lg:max-w-[98%] m-auto flex flex-wrap items-center p-[20px] lg:p-[60px]">
+        {donationWithdrawals?(
+          
+          <div className="animate-bounce mt-[60px] sm:mt-[30px] w-[50%] h-[200x] border-2 border-green-600 m-auto text-center justify-center p-4">
+            <Image
+              src="/images/Trophy.png"
+              alt="NFT"
+              layout="responsive"
+              width={150}
+              height={150}
+              className="mx-auto max-w-[40%] max-h-[30%]"
+              />
+            <p className="sm:text-[20px] text-[14px]">Congratulations</p>
+            <p className="sm:text-[20px] text-[14px]">You have {String(donationWithdrawals)}$ to claim</p>
+            <button
+              onClick={collectDonationRewards}
+              className="flex m-auto items-center justify-center glossy_claim hover:bg-[#346301] mx-auto sm:p-[10px] p-[4px] w-[60%] rounded-full mt-[10px] glossy_cta"
+            >
+              <p className="sm:text-[20px] text-[12px]">Claim Now</p>
+            </button>
+          </div>
+        ):(
+          ""
+        )}
         <div className="w-[100%]">
             <p className="text-center mt-[30px] text-[26px]">24h Tournaments</p>
             <div className="md:w-[80%] w-[100%] m-auto items-center justify-center flex md:flex-row flex-col">

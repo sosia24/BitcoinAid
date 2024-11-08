@@ -10,36 +10,40 @@ const config: Config = {
     extend: {
       screens: {
         // Alterar o valor do breakpoint 'md'
-        'lg': '1200px',
+        lg: "1200px",
 
         // Adicionar um breakpoint personalizado chamado 'xl2'
-        'xl2': '1400px',
+        xl2: "1400px",
       },
       fontFamily: {
-        Agency: ['Agency', 'sans-serif'],
+        Agency: ["Agency", "sans-serif"],
       },
-      animation:{
-        'marquee': 'marquee 20s linear infinite',
-        'slide-down': 'slideDown 0.3s ease-out forwards',
+      animation: {
+        marquee: "marquee 20s linear infinite",
+        "slide-down": "slideDown 0.3s ease-out forwards",
+        bounce: "bounce 0.5s ease-in-out 10", // Ajuste a duração e o timing function aqui
       },
-      keyframes:{
+      keyframes: {
         slideDown: {
-          '0%': {
-            opacity: '0',
+          "0%": {
+            opacity: "0",
           },
-          '100%': {
-            opacity: '1',
+          "100%": {
+            opacity: "1",
           },
         },
         marquee: {
-          '0%': { transform: 'translateX(0%)' },
-          '100%': { transform: 'translateX(-100%)' },
-        }
+          "0%": { transform: "translateX(0%)" },
+          "100%": { transform: "translateX(-100%)" },
+        },
+        bounce: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-5%)" }, // Controle a intensidade do bounce
+        },
       },
     },
   },
-  
   plugins: [],
-  
 };
+
 export default config;
