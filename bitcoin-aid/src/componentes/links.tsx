@@ -31,7 +31,7 @@ export default function Links() {
                     alt="logobtca"
                     width={100}
                     height={100}
-                    className="fixed cursor-pointer md:bottom-[90px] bottom-[80px] right-[2%] text-white rounded-full transition transform hover:scale-110 md:w-[100px] w-[80px] h-[80px] md:h-[100px]"
+                    className="fixed cursor-pointer md:bottom-[90px] bottom-[80px] right-[2%] text-white rounded-full transition transform hover:scale-110 md:w-[90px] w-[70px] h-[70px] md:h-[90px]"
                 />
 
 
@@ -250,7 +250,7 @@ export default function Links() {
                 </div>
             </div>
             ):(
-                ""
+                "" 
             )}
         </>
     );
