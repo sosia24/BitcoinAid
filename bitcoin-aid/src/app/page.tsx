@@ -168,7 +168,12 @@ export default function Home() {
   };
 
   const donateMin = async () =>{
-    setError("The minimum donation is 10USDT");
+    if(tokenPrice >= 3){
+      setError("The minimum donation is 10USDT");
+    }else{
+      setError("Donations return when the token reaches $3.");
+    }
+
   }
 
   const Donate = async () => {
@@ -566,7 +571,8 @@ export default function Home() {
     
                 
                 </div>
-                {Math.floor((Number(value) * tokenPrice) * 100) / 100 >= 10?(
+                
+                {Math.floor((Number(value) * tokenPrice) * 100) / 100 >= 10 &&tokenPrice>=3?(
                   <>
                   <button
                   onClick={openDonate}
@@ -580,12 +586,17 @@ export default function Home() {
                   
                   <button
                   onClick={donateMin}
-                  className="cursor-not-allowed mt-[10px] shadow-lg glossy_cta hover:bg-[#b7831c] rounded-3xl text-[20px] md:text-[25px] font-Agency w-[80%] bg-[#d79920]"
+                  className="cursor-not-allowed mt-[10px] shadow-lg hover:bg-red-700 rounded-3xl text-[20px] md:text-[25px] font-Agency w-[80%] bg-red-500"
                   >
                     Contribute Now +
                     </button>
+                    
                   </>
+                  
                 )}
+                {tokenPrice < 3}{
+                  <p className="text-red-600">Donations return when the token reaches $3.</p>
+                }
                   
                 
               </div>
