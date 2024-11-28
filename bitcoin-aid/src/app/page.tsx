@@ -444,6 +444,7 @@ export default function Home() {
             Donation Pool
           </p>
         </div>
+        {/*
         <div className="mt-[30px] lg:mt-[50px] w-[100%] md:w-[45%] border-l-2 border-[#282722] p-8 ">
           <p className="font-semibold sm:text-[25px] text-[18px] lg:text-[40px] w-full ">
             ${tokenPrice}
@@ -452,7 +453,7 @@ export default function Home() {
             1 BTCA Price
           </p>
         </div>
-
+          */}
         <div className="btn-days w-full">
           {isFifteenDays ? (
             <div className="mt-[50px]">

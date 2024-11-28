@@ -95,6 +95,13 @@ export default function Links() {
                             </div>
                         </a>
 
+                        <a href="/tournament">
+                            <div className="flex flex-row bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg mt-[15px] transition transform hover:scale-110">
+                                <Image alt="btca logo" src={"/images/Trophy.png"} width={100} height={100} className="w-10 h-10 mt-[2px]"></Image>
+                                <p className="ml-[-5px] text-[18px] p-2">Tournament</p>
+                            </div>
+                        </a>
+
                         <a onClick={handleYoutube} target="_blank" rel="noopener noreferrer" className="cursor-pointer">
                             <div className="flex flex-row bg-red-600 hover:bg-red-700 text-white p-2 rounded-full shadow-lg mt-[15px] transition transform hover:scale-110">
                                 <FaYoutube className="w-6 h-6" />
